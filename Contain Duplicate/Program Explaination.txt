@@ -1,0 +1,44 @@
+Chalo, main aapko line by line explain karta hoon.
+
+public class Solution {
+
+Yeh ek public class hai, jiska naam "Solution" hai. Yeh humara main class hai jisme humara solution likha hoga.
+
+public boolean containsDuplicate(int[] nums) {
+
+Yeh ek public method hai, jiska naam "containsDuplicate" hai. Yeh method ek integer array "nums" letha hai aur boolean value return karta hai. Boolean value ka matlab hai ki ya to true ya false.
+
+Set set = new HashSet<>();
+
+Yeh ek set banaya hai, jiska naam "set" hai. Yeh set humare array ke elements ko store karne ke liye hai. HashSet ek tarah ka set hai jo ki unique elements store karta hai.
+
+for (int num : nums) {
+
+Yeh ek for loop hai, jo humare array "nums" ke sabhi elements ko iterate karta hai. Yeh loop ek ek karke sabhi elements ko check karega.
+
+if (!set.add(num)) {
+
+Yeh ek if condition hai, jo check karta hai ki kya humara set me already yeh element hai ya nahi. Agar yeh element already set me hai, to set.add(num) method false return karega.
+
+return true;
+
+Agar yeh element already set me hai, to hum true return karte hain. Ka matlab hai ki humare array me duplicate element hai.
+
+}
+
+Yeh if condition ke andar ka code hai.
+
+return false;
+
+Agar humare array me koi duplicate element nahi hai, to hum false return karte hain.
+
+}
+
+Yeh humare class ke andar ka code hai.
+Ab main iska ek example dekhata hoon.
+Manlo ek array hai, [1, 2, 3, 4, 5]. Yeh array me koi duplicate element nahi hai, to hum false return karenge.
+Lekin agar humare array me [1, 2, 2, 4, 5] hai, to hum true return karenge. Ka matlab hai ki humare array me duplicate element hai.
+
+Ummeed hai ki aapko yeh explanation samajh aaya hoga. Agar aapke paas koi doubt hai, to aap mujhe puch sakte hain. 
+
+If any need please ask me : https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,59 @@
+Ab main iska line by line explanation deta hoon.
+
+import java.util.HashMap;
+
+import java.util.Map;
+
+Yeh humare import statements hai, jo ki humare HashMap aur Map class ko import karte hai.
+
+public class Solution {
+
+Yeh ek public class hai, jiska naam "Solution" hai. Yeh humara main class hai jisme humara solution likha hoga.
+
+public boolean containsNearbyDuplicate(int[] nums, int k) {
+
+Yeh ek public method hai, jiska naam "containsNearbyDuplicate" hai. Yeh method ek integer array "nums" aur ek integer "k" letha hai, aur boolean value return karta hai.
+
+Map map = new HashMap<>();
+
+Yeh ek HashMap banaya hai, jiska naam "map" hai. Yeh map humare array ke elements ko store karne ke liye hai, aur unke indices ko store karne ke liye hai.
+
+for (int i = 0; i < nums.length; i++) {
+
+Yeh ek for loop hai, jo humare array "nums" ke sabhi elements ko iterate karta hai.
+
+if (map.containsKey(nums[i])) {
+
+Yeh ek if condition hai, jo check karta hai ki kya humara map me already yeh element hai ya nahi. Agar yeh element already map me hai, to hum check karte hai ki kya yeh element k indices apart hai ya nahi.
+
+if (i - map.get(nums[i]) <= k) {
+
+Yeh ek if condition hai, jo check karta hai ki kya yeh element k indices apart hai ya nahi. Agar yeh element k indices apart hai, to hum true return karte hai.
+
+return true;
+
+Agar yeh element k indices apart hai, to hum true return karte hai.
+
+}
+
+Yeh if condition ke andar ka code hai.
+
+map.put(nums[i], i);
+
+Yeh humara map me yeh element ko store karta hai, aur uske index ko store karta hai.
+
+}
+
+Yeh for loop ke andar ka code hai.
+
+return false;
+
+Agar humare array me koi duplicate element nahi hai, jo ki k indices apart hai, to hum false return karte hai.
+
+Ab main iska ek example dekhata hoon.
+
+Manko ek array hai, [1, 2, 3, 1] aur k = 3. Yeh array me 1 element hai, jo ki 3 indices apart hai, to hum true return karte hai.
+
+Ummeed hai ki aapko yeh explanation samajh aaya hoga. Agar aapke paas koi doubt hai, to aap mujhe puch sakte hain.
+
+If any need please ask me : https://www.linkedin.com/in/saurabh884095/

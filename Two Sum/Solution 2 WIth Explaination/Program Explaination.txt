@@ -1,0 +1,51 @@
+main aapko is code ke baare mein samjhata hoon.
+
+Class Solution2
+
+* class Solution2 { ... }: Hum ek class Solution2 define kar rahe hain jismein twoSum method hai.
+
+twoSum Method
+
+* public int[] twoSum(int[] nums, int target) { ... }: Hum twoSum method define kar rahe hain jo do inputs leta hai:
+
++ nums: ek array of integers
+
++ target: ek integer
+
+Nested Loops
+
+* for (int i =0; i < nums.length; i++) { ... }: Hum nums array par iterate kar rahe hain.
+
+* for (int j = i +1; j < nums.length; j++) { ... }: Hum nums array par phir se iterate kar rahe hain, lekin i + 1 se shuru kar rahe hain.
+
+Check if Sum Equals Target
+
+* if (nums[i] + nums[j] == target) { ... }: Hum dekh rahe hain ki kya nums[i] aur nums[j] ka sum target ke barabar hai.
+
+Return Indices
+
+* return new int[] { i, j };: Agar sum target ke barabar hai, to hum i aur j indices return kar rahe hain.
+
+No Solution Found
+
+* throw new RuntimeException("No solution found");: Agar humko koi solution nahi milta hai, to hum ek RuntimeException fenk dete hain.
+
+Is code ka time complexity O(n^2) hai aur space complexity O(1) hai.
+
+Yeh code kaafi simple hai, lekin iska time complexity jyada hai isliye yeh code bahut bada input handle nahi kar sakta hai.
+
+Kya aapko ab is code ke baare mein samajh aaya?
+
+Comparison with Previous Solution:
+
+| Solution | Time Complexity | Space Complexity |
+
+| --- | --- | --- |
+
+| Solution1 (HashMap) | O(n) | O(n) |
+
+| Solution2 (Nested Loops) | O(n^2) | O(1) |
+
+Solution1 jyada efficient hai, lekin Solution2 simple hai.
+
+If any need please ask me : https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,57 @@
+Main aapko is code ke baare mein samjhata hoon.
+
+Import Statements
+
+* import java.util.HashMap;: Hum HashMap class ko import kar rahe hain, jo ek data structure hai jismein hum key-value pairs store kar sakte hain.
+
+* import java.util.Map;: Hum Map interface ko import kar rahe hain, jo HashMap class ko implement karta hai.
+
+Class Solution1
+
+* class Solution1 { ... }: Hum ek class Solution1 define kar rahe hain jismein twoSum method hai.
+
+twoSum Method
+
+* public int[] twoSum(int[] nums, int target) { ... }: Hum twoSum method define kar rahe hain jo do inputs leta hai:
+
++ nums: ek array of integers
+
++ target: ek integer
+
+HashMap Declaration
+
+* Map numToIndex = new HashMap<>();: Hum ek HashMap declare kar rahe hain jismein:
+
++ Key: Integer (ek integer value)
+
++ Value: Integer (ek integer index)
+
+Loop
+
+* for (int i =0; i < nums.length; i++) { ... }: Hum nums array par iterate kar rahe hain.
+
+Complement Calculation
+
+* int complement = target - nums[i];: Hum target se nums[i] ko घटाकर complement calculate kar rahe hain.
+
+Check if Complement Exists
+
+* if (numToIndex.containsKey(complement)) { ... }: Hum dekh rahe hain ki kya numToIndex map mein complement key ke roop mein hai.
+
+Return Indices
+
+* return new int[] { numToIndex.get(complement), i };: Agar complement exists hai, to hum uske index aur current index i return kar rahe hain.
+
+Store Current Element and Index
+
+* numToIndex.put(nums[i], i);: Hum current element aur uska index map mein store kar rahe hain.
+
+No Solution Found
+
+* throw new RuntimeException("No solution found");: Agar humko koi solution nahi milta hai, to hum ek RuntimeException fenk dete hain.
+
+Is code ka time complexity O(n) hai aur space complexity bhi O(n) hai.
+
+Kya aapko ab is code ke baare mein samajh aaya?
+
+If any need please ask me : https://www.linkedin.com/in/saurabh884095/

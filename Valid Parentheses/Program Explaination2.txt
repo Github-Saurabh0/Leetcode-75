@@ -1,0 +1,43 @@
+
+✅ Solution 2: Stack-Based Approach (Hinglish Explanation - Line by Line)
+
+import java.util.Stack;
+👉 Java ke built-in `Stack` class ko import kar rahe hain.
+
+public class Solution {
+👉 Ek class banayi hai `Solution` naam se — Leetcode format ke hisaab se.
+
+    public boolean isValid(String s) {
+    👉 `isValid` function banaya hai jo ek `String s` lega aur `true/false` return karega — valid ya invalid parentheses.
+
+        Stack<Character> stack = new Stack<>();
+        👉 Ek naya `Stack` banaya hai jisme hum characters (`char`) store karenge.
+
+        for (char ch : s.toCharArray()) {
+        👉 String ke har character ko `ch` variable mein le kar loop chala rahe hain.
+
+            if (ch == '(') {
+                stack.push(')');
+            } else if (ch == '{') {
+                stack.push('}');
+            } else if (ch == '[') {
+                stack.push(']');
+            👉 Agar character opening bracket ho, toh uska corresponding closing bracket stack mein push kar rahe hain.
+
+            } else {
+                if (stack.isEmpty() || stack.pop() != ch) {
+                    return false;
+                }
+            👉 Agar closing bracket mila:
+               - Stack empty ho toh false
+               - Pop kiya hua element current closing se match nahi karta toh bhi false
+
+            }
+        }
+
+        return stack.isEmpty();
+        👉 Sab process hone ke baad agar stack empty hai, toh return `true`, nahi toh `false`.
+    }
+}
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

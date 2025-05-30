@@ -1,0 +1,42 @@
+
+✅ Solution 1: Deque-Based Approach (Hinglish Explanation - Line by Line)
+
+import java.util.Deque;
+import java.util.ArrayDeque;
+👉 `Deque` aur `ArrayDeque` import kiya gaya hai — efficient stack ke liye.
+
+public class Solution {
+    public boolean isValid(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+        👉 `Deque` ka object banaya gaya `stack` naam ka.
+
+        for (char ch : s.toCharArray()) {
+        👉 Loop har character ke liye.
+
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+            👉 Opening bracket mila toh stack mein push kar diya.
+
+            } else {
+                if (stack.isEmpty()) return false;
+                👉 Agar stack empty hai jab closing bracket mila, toh invalid.
+
+                char open = stack.pop();
+                👉 Top se ek opening bracket nikala.
+
+                if ((ch == ')' && open != '(') ||
+                    (ch == '}' && open != '{') ||
+                    (ch == ']' && open != '[')) {
+                    return false;
+                }
+                👉 Check kiya ki matching bracket sahi se close ho raha hai ya nahi.
+            }
+        }
+
+        return stack.isEmpty();
+        👉 Sab complete hone ke baad stack empty hona chahiye.
+
+    }
+}
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

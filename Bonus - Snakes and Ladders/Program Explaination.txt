@@ -1,0 +1,114 @@
+
+✅ Leetcode 909: Snakes and Ladders (Best Java Solution — O(N^2) with 0.5ms to 1ms runtime)
+
+⚠️ Note: Time complexity is not truly O(n) because BFS explores N^2 board cells in worst-case, 
+but solution is optimized and accepted with 0.5ms – 1ms runtime.
+
+🔧 Optimized Java Code (Using BFS):
+
+import java.util.*;
+
+public class Solution {
+    public int snakesAndLadders(int[][] board) {
+        int n = board.length;
+        boolean[] visited = new boolean[n * n + 1];
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(1);
+        visited[1] = true;
+        int moves = 0;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                int curr = queue.poll();
+                if (curr == n * n) return moves;
+
+                for (int dice = 1; dice <= 6 && curr + dice <= n * n; dice++) {
+                    int next = curr + dice;
+                    int[] pos = getCoordinates(next, n);
+                    if (board[pos[0]][pos[1]] != -1) {
+                        next = board[pos[0]][pos[1]];
+                    }
+                    if (!visited[next]) {
+                        visited[next] = true;
+                        queue.add(next);
+                    }
+                }
+            }
+            moves++;
+        }
+
+        return -1;
+    }
+
+    private int[] getCoordinates(int num, int n) {
+        int r = (num - 1) / n;
+        int c = (num - 1) % n;
+        if (r % 2 == 1) c = n - 1 - c;
+        return new int[] {n - 1 - r, c};
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+int n = board.length;
+➡️ Board ka size n x n hota hai — total cells n*n.
+
+boolean[] visited = new boolean[n * n + 1];
+➡️ Ek array banaya jo batata hai kaunsa cell visit hua hai ya nahi.
+
+Queue<Integer> queue = new LinkedList<>();
+➡️ BFS ke liye queue use kar rahe hain.
+
+queue.add(1);
+➡️ Game ki starting cell — 1 — ko queue mein daal diya.
+
+visited[1] = true;
+➡️ Starting cell ko visited mark kar diya.
+
+int moves = 0;
+➡️ Moves counter — jitni baar dice chalani padhi.
+
+while (!queue.isEmpty()) {
+➡️ Jab tak queue empty nahi hoti, BFS chalta rahega.
+
+int size = queue.size();
+➡️ Har level ke liye kitne nodes hain.
+
+for (int i = 0; i < size; i++) {
+    int curr = queue.poll();
+➡️ Queue se ek cell uthaya.
+
+    if (curr == n * n) return moves;
+➡️ Agar destination (last cell) mil gaya, toh moves return karo.
+
+    for (int dice = 1; dice <= 6 && curr + dice <= n * n; dice++) {
+        int next = curr + dice;
+➡️ Dice ka har value try karte hain 1 se 6 tak.
+
+        int[] pos = getCoordinates(next, n);
+➡️ Flat number ko 2D coordinates mein convert karte hain.
+
+        if (board[pos[0]][pos[1]] != -1) {
+            next = board[pos[0]][pos[1]];
+➡️ Agar ladder ya snake mila (yaani cell != -1), toh us cell mein jump karte hain.
+
+        }
+
+        if (!visited[next]) {
+            visited[next] = true;
+            queue.add(next);
+➡️ Agar wo cell pehle visit nahi hua toh queue mein add karo.
+        }
+    }
+}
+moves++;
+➡️ Ek level BFS complete hone ke baad move increment karo.
+
+return -1;
+➡️ Agar destination tak nahi pahunch paye, toh -1 return karo.
+
+🔄 getCoordinates():
+➡️ Board pe flat number ko actual (row, col) mein convert karta hai — odd-even row ke according reverse bhi karta hai.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

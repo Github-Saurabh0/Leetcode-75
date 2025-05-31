@@ -1,0 +1,67 @@
+
+✅ Leetcode 125: Valid Palindrome (Java Solution)
+
+🔧 Optimal Java Code (Two Pointer Approach):
+
+public class Solution2 {
+    public boolean isPalindrome(String s) {
+        int left = 0, right = s.length() - 1;
+
+        while (left < right) {
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                left++;
+            }
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                right--;
+            }
+
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
+
+📝 Explanation (Line by Line):
+
+public class Solution {
+➡️ Leetcode ke format mein class `Solution` define ki gayi hai.
+
+public boolean isPalindrome(String s) {
+➡️ Function `isPalindrome` ek string input leta hai aur boolean return karta hai — true agar string palindrome hai.
+
+int left = 0, right = s.length() - 1;
+➡️ Do pointers banate hain: ek left end pe (0 index) aur ek right end pe (last index).
+
+while (left < right) {
+➡️ Jab tak left pointer right se chhota hai, tab tak check karte hain.
+
+while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+    left++;
+}
+➡️ Jab tak left pointer pe non-alphanumeric character hai (space, comma, etc.), usko skip karte hain.
+
+while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+    right--;
+}
+➡️ Same cheez right pointer ke liye — non-alphanumeric ko ignore karo.
+
+if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+    return false;
+}
+➡️ Dono valid characters ko lowercase mein compare karo.
+➡️ Agar match nahi hua toh return false — matlab string palindrome nahi hai.
+
+left++;
+right--;
+➡️ Agar match ho gaya, toh left ko aage aur right ko peeche le jao.
+
+return true;
+➡️ Pura loop chal gaya bina false return kiye, toh string palindrome hai — return true.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

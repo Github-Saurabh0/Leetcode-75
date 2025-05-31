@@ -1,0 +1,52 @@
+
+✅ Leetcode 121: Best Time to Buy and Sell Stock (Java 1ms Solution with O(n) Time Complexity)
+
+🔧 Optimized Java Code (1ms):
+
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int buy = prices[0];
+        int profit = 0;
+
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] < buy) {
+                buy = prices[i]; // Update lowest price
+            } else {
+                profit = Math.max(profit, prices[i] - buy); // Maximize profit
+            }
+        }
+
+        return profit;
+    }
+}
+
+📝 Explanation (Line by Line):
+
+public class Solution {
+➡️ Leetcode standard ke hisaab se class `Solution` define ki gayi hai.
+
+public int maxProfit(int[] prices) {
+➡️ Function `maxProfit` ek array of stock prices input leta hai aur maximum profit calculate karta hai.
+
+int buy = prices[0];
+➡️ Sabse pehle din ka price ko hum initial buy price assume kar lete hain.
+
+int profit = 0;
+➡️ Profit ko initially 0 se start karte hain.
+
+for (int i = 1; i < prices.length; i++) {
+➡️ Array ko index 1 se traverse karte hain kyunki 0 already buy mein use ho gaya hai.
+
+if (prices[i] < buy) {
+    buy = prices[i];
+➡️ Agar current price pehle ke lowest price se kam hai, toh use buy price bana dete hain.
+
+} else {
+    profit = Math.max(profit, prices[i] - buy);
+➡️ Agar current price zyada hai, toh usme se buy price minus karke profit nikaalte hain.
+➡️ `Math.max` se check karte hain ki naya profit zyada hai ya pehle wala — aur accordingly update kar dete hain.
+
+return profit;
+➡️ Final maximum profit return karte hain.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

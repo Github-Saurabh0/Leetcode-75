@@ -1,0 +1,61 @@
+✅ Leetcode 21: Merge Two Sorted Lists (Java Solution with O(n) Time Complexity)
+
+🔧 Optimal Java Code (Iterative Approach):
+
+public class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(-1);
+        ListNode current = dummy;
+
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                current.next = list1;
+                list1 = list1.next;
+            } else {
+                current.next = list2;
+                list2 = list2.next;
+            }
+            current = current.next;
+        }
+
+        current.next = (list1 != null) ? list1 : list2;
+
+        return dummy.next;
+    }
+}
+
+📝 Explanation (Line by Line):
+
+public class Solution {
+➡️ Leetcode format ke hisaab se class `Solution` banai.
+
+public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+➡️ Function `mergeTwoLists` do sorted linked lists ko input leta hai aur ek merged sorted linked list return karta hai.
+
+ListNode dummy = new ListNode(-1);
+ListNode current = dummy;
+➡️ Ek dummy node banaya jisse hum merged list start karte hain. `current` pointer ko dummy pe point karaya.
+
+while (list1 != null && list2 != null) {
+➡️ Jab tak dono list mein elements hain, loop chalayenge.
+
+if (list1.val <= list2.val) {
+    current.next = list1;
+    list1 = list1.next;
+} else {
+    current.next = list2;
+    list2 = list2.next;
+}
+current = current.next;
+➡️ Dono list ke current element compare karte hain.
+   - Jo chhota hota hai, usko merged list mein add karte hain.
+   - Fir us list ko aage badhate hain (`.next`).
+   - `current` pointer bhi aage badhate hain.
+
+current.next = (list1 != null) ? list1 : list2;
+➡️ Agar ek list khatam ho jaaye aur doosri bachi ho, toh usko direct attach kar dete hain.
+
+return dummy.next;
+➡️ Dummy node ke baad jo node hai, wahi head hai merged sorted list ka — usko return karte hain.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

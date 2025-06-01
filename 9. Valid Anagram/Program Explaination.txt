@@ -1,0 +1,51 @@
+
+✅ Leetcode 242: Valid Anagram (Java Solution — 0.5ms to 1ms, O(n) Time Complexity)
+
+🔧 Optimal Java Code (Using Character Count Array):
+
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+
+        int[] count = new int[26];
+
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i) - 'a']++;
+            count[t.charAt(i) - 'a']--;
+        }
+
+        for (int c : count) {
+            if (c != 0) return false;
+        }
+
+        return true;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+if (s.length() != t.length()) return false;
+➡️ Agar dono strings ki length alag hai, toh obviously anagram nahi ho sakte.
+
+int[] count = new int[26];
+➡️ Ek array banaya jo har letter (a-z) ke frequency ko track karega.
+
+for (int i = 0; i < s.length(); i++) {
+    count[s.charAt(i) - 'a']++;
+    count[t.charAt(i) - 'a']--;
+}
+➡️ Pehli string ke characters ka count increase karo,
+➡️ Dusri string ke characters ka count decrease karo.
+
+for (int c : count) {
+    if (c != 0) return false;
+}
+➡️ Agar kisi bhi character ka final count non-zero hai, toh s aur t anagrams nahi hain.
+
+return true;
+➡️ Sab characters match ho gaye — strings are valid anagrams.
+
+🧠 Time Complexity:
+➡️ O(n) — Har character ko ek baar process kiya jaata hai.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

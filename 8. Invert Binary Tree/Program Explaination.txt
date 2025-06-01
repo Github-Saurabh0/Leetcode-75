@@ -1,0 +1,44 @@
+
+✅ Leetcode 226: Invert Binary Tree (Java Solution — 0.5ms to 1ms)
+
+🔧 Optimal Java Code (Recursive):
+
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return null;
+
+        TreeNode left = invertTree(root.left);
+        TreeNode right = invertTree(root.right);
+
+        root.left = right;
+        root.right = left;
+
+        return root;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+public TreeNode invertTree(TreeNode root) {
+➡️ Function `invertTree` ek tree ka root node leta hai aur inverted tree return karta hai.
+
+if (root == null) return null;
+➡️ Base condition: agar root null hai toh wahi return karo — koi inversion karne ki zarurat nahi.
+
+TreeNode left = invertTree(root.left);
+➡️ Recursively left subtree ko invert karo aur result `left` mein store karo.
+
+TreeNode right = invertTree(root.right);
+➡️ Recursively right subtree ko invert karo aur result `right` mein store karo.
+
+root.left = right;
+root.right = left;
+➡️ Ab dono subtrees swap kar do — left mein right daalo aur right mein left.
+
+return root;
+➡️ Final root node return karo jisme inverted left aur right subtree honge.
+
+🧠 Time Complexity:
+➡️ O(n) — Har node ko ek baar visit karte hain.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

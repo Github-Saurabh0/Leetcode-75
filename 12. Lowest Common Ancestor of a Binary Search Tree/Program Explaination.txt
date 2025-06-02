@@ -1,0 +1,52 @@
+✅ Leetcode 235: Lowest Common Ancestor of a Binary Search Tree (Java Solution — O(log n) Average Time)
+
+🔧 Optimal Java Code:
+
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        while (root != null) {
+            if (p.val < root.val && q.val < root.val) {
+                root = root.left;
+            } else if (p.val > root.val && q.val > root.val) {
+                root = root.right;
+            } else {
+                return root;
+            }
+        }
+        return null;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+while (root != null) {
+➡️ Jab tak root null nahi hota, tab tak check karte jao.
+
+if (p.val < root.val && q.val < root.val) {
+➡️ Agar dono p aur q ka value current root se chhota hai,
+➡️ toh LCA left subtree me hoga, left mein jao.
+
+    root = root.left;
+
+} else if (p.val > root.val && q.val > root.val) {
+➡️ Agar dono p aur q ka value current root se bada hai,
+➡️ toh LCA right subtree me hoga, right mein jao.
+
+    root = root.right;
+
+} else {
+➡️ Ek chhota hai aur ek bada ya ek equal hai — yehi LCA hai.
+
+    return root;
+}
+
+return null;
+➡️ Safety ke liye agar kuch galat input ho toh.
+
+🧠 Time Complexity:
+➡️ O(log n) — average case (balanced BST), O(n) worst case (unbalanced BST)
+
+🧠 Space Complexity:
+➡️ O(1) — iterative solution, no extra space.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

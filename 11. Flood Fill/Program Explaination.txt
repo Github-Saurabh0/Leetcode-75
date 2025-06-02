@@ -1,0 +1,60 @@
+
+✅ Leetcode 733: Flood Fill (Java Solution — 0ms Runtime, O(m * n) Time Complexity)
+
+🔧 Optimal Java Code (DFS Approach):
+
+public class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int startColor = image[sr][sc];
+        if (startColor != color) {
+            dfs(image, sr, sc, startColor, color);
+        }
+        return image;
+    }
+
+    private void dfs(int[][] image, int r, int c, int color, int newColor) {
+        if (r < 0 || r >= image.length || c < 0 || c >= image[0].length || image[r][c] != color)
+            return;
+
+        image[r][c] = newColor;
+
+        dfs(image, r + 1, c, color, newColor);
+        dfs(image, r - 1, c, color, newColor);
+        dfs(image, r, c + 1, color, newColor);
+        dfs(image, r, c - 1, color, newColor);
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+int startColor = image[sr][sc];
+➡️ Start point ke original color ko store kiya.
+
+if (startColor != color) {
+    dfs(image, sr, sc, startColor, color);
+}
+➡️ Agar start color already new color se alag hai, tabhi DFS lagayenge.
+
+private void dfs(int[][] image, int r, int c, int color, int newColor) {
+➡️ DFS helper function jo 4 directions me jaake color change karega.
+
+if (r < 0 || r >= image.length || c < 0 || c >= image[0].length || image[r][c] != color)
+    return;
+➡️ Agar index out of bounds ho ya current color match na kare toh stop karo.
+
+image[r][c] = newColor;
+➡️ Pixel ka color change kar diya.
+
+dfs(image, r + 1, c, color, newColor);
+dfs(image, r - 1, c, color, newColor);
+dfs(image, r, c + 1, color, newColor);
+dfs(image, r, c - 1, color, newColor);
+➡️ 4 directions me recursively spread kar rahe hain.
+
+🧠 Time Complexity:
+➡️ O(m * n) — Poore grid me worst-case me sabhi cells visit ho sakte hain.
+
+🧠 Space Complexity:
+➡️ O(m * n) — Recursive stack space for DFS.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

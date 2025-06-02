@@ -1,0 +1,55 @@
+
+✅ Leetcode 704: Binary Search (Java Solution — 0ms Runtime, O(log n) Time Complexity)
+
+🔧 Optimal Java Code (Iterative Binary Search):
+
+public class Solution {
+    public int search(int[] nums, int target) {
+        int left = 0, right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] < target) left = mid + 1;
+            else right = mid - 1;
+        }
+
+        return -1;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+public int search(int[] nums, int target) {
+➡️ Function `search` ek sorted array `nums` aur target number leta hai.
+
+int left = 0, right = nums.length - 1;
+➡️ Binary search ke liye left aur right pointers set kiye.
+
+while (left <= right) {
+➡️ Jab tak left right se chhota ya barabar ho, search chalu rakho.
+
+    int mid = left + (right - left) / 2;
+    ➡️ Mid index nikal rahe hain. (overflow avoid karne ke liye formula optimize kiya hai)
+
+    if (nums[mid] == target) return mid;
+    ➡️ Agar mid pe target mil gaya toh return karo mid index.
+
+    else if (nums[mid] < target) left = mid + 1;
+    ➡️ Agar mid value chhoti hai target se, toh target right side mein hoga.
+
+    else right = mid - 1;
+    ➡️ Agar mid value badi hai, toh target left side mein hoga.
+}
+
+return -1;
+➡️ Agar target nahi mila toh -1 return karo.
+
+🧠 Time Complexity:
+➡️ O(log n) — har baar array ka aadha part chhodd dete hain.
+
+🧠 Space Complexity:
+➡️ O(1) — koi extra space use nahi kar rahe.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

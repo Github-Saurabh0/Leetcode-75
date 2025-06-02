@@ -1,0 +1,68 @@
+✅ Leetcode 135: Candy (Java Solution — O(n) Time Complexity, 2-pass Greedy Approach)
+
+🔧 Optimal Java Code:
+
+public class Solution {
+    public int candy(int[] ratings) {
+        int n = ratings.length;
+        int[] candies = new int[n];
+
+        Arrays.fill(candies, 1);
+
+        for (int i = 1; i < n; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                candies[i] = candies[i - 1] + 1;
+            }
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            if (ratings[i] > ratings[i + 1]) {
+                candies[i] = Math.max(candies[i], candies[i + 1] + 1);
+            }
+        }
+
+        int total = 0;
+        for (int c : candies) {
+            total += c;
+        }
+
+        return total;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+int n = ratings.length;
+➡️ Total number of children ka count.
+
+int[] candies = new int[n];
+➡️ Har child ke liye ek candy array banaya.
+
+Arrays.fill(candies, 1);
+➡️ Sabko minimum 1 candy de di initially (rule follow karne ke liye).
+
+First loop (Left to Right):
+➡️ Agar current child ka rating previous se zyada hai,
+➡️ toh usko ek extra candy milegi:
+
+    candies[i] = candies[i - 1] + 1;
+
+Second loop (Right to Left):
+➡️ Agar current child ka rating next se zyada hai,
+➡️ toh max of current aur next + 1 candies do:
+
+    candies[i] = Math.max(candies[i], candies[i + 1] + 1);
+
+Final loop:
+➡️ Total candies ka sum nikalo.
+
+return total;
+➡️ Total candies return karo jo distribute karni padengi.
+
+🧠 Time Complexity:
+➡️ O(n) — 3 linear passes over array.
+
+🧠 Space Complexity:
+➡️ O(n) — candies array ke liye extra space.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

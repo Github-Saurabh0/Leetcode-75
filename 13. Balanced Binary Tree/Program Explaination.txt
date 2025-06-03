@@ -1,0 +1,58 @@
+
+✅ Leetcode 110: Balanced Binary Tree (Java Solution — O(n) Time Complexity)
+
+🔧 Optimal Java Code (Bottom-Up DFS):
+
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return checkHeight(root) != -1;
+    }
+
+    private int checkHeight(TreeNode node) {
+        if (node == null) return 0;
+
+        int left = checkHeight(node.left);
+        if (left == -1) return -1;
+
+        int right = checkHeight(node.right);
+        if (right == -1) return -1;
+
+        if (Math.abs(left - right) > 1) return -1;
+
+        return Math.max(left, right) + 1;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+public boolean isBalanced(TreeNode root) {
+    return checkHeight(root) != -1;
+}
+➡️ Agar checkHeight() -1 return karta hai, toh tree unbalanced hai. Warna balanced.
+
+private int checkHeight(TreeNode node) {
+    if (node == null) return 0;
+}
+➡️ Agar node null hai toh height 0 return karo (base case).
+
+int left = checkHeight(node.left);
+if (left == -1) return -1;
+➡️ Left subtree ka height check karo. Agar left unbalanced hai (-1), toh tree bhi unbalanced hai — return -1.
+
+int right = checkHeight(node.right);
+if (right == -1) return -1;
+➡️ Same logic right subtree ke liye bhi apply hota hai.
+
+if (Math.abs(left - right) > 1) return -1;
+➡️ Agar left aur right subtree ka height difference 1 se zyada ho, toh tree unbalanced hai.
+
+return Math.max(left, right) + 1;
+➡️ Agar balanced hai, toh current node ki height return karo.
+
+🧠 Time Complexity:
+➡️ O(n) — Har node sirf ek baar visit hoti hai.
+
+🧠 Space Complexity:
+➡️ O(h) — Recursive stack space (height of tree).
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,54 @@
+
+✅ Leetcode 141: Linked List Cycle (Java Solution — O(n) Time, O(1) Space)
+
+🔧 Optimal Java Code (Floyd’s Tortoise and Hare Algorithm):
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while (slow != fast) {
+            if (fast == null || fast.next == null) return false;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return true;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+if (head == null || head.next == null) return false;
+➡️ Agar list empty hai ya ek hi node hai, toh cycle possible nahi hai.
+
+ListNode slow = head;
+ListNode fast = head.next;
+➡️ Do pointer banaye: slow ek step chalega, fast do step.
+
+while (slow != fast) {
+➡️ Jab tak slow aur fast milte nahi, loop chalayenge.
+
+    if (fast == null || fast.next == null) return false;
+    ➡️ Agar fast null ho gaya ya uska next null ho gaya, toh cycle nahi hai.
+
+    slow = slow.next;
+    ➡️ Slow ek step chalta hai.
+
+    fast = fast.next.next;
+    ➡️ Fast do step chalta hai.
+}
+
+return true;
+➡️ Agar slow == fast ho gaya, toh cycle exist karta hai.
+
+🧠 Time Complexity:
+➡️ O(n) — Har node ek baar visit hoti hai.
+
+🧠 Space Complexity:
+➡️ O(1) — Constant space, extra space nahi lagta.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

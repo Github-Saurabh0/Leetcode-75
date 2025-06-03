@@ -1,0 +1,50 @@
+✅ Leetcode 383: Ransom Note (Java Solution — O(n) Time, O(1) Space)
+
+🔧 Optimal Java Code:
+
+public class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        int[] count = new int[26];
+
+        for (char c : magazine.toCharArray()) {
+            count[c - 'a']++;
+        }
+
+        for (char c : ransomNote.toCharArray()) {
+            if (--count[c - 'a'] < 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+int[] count = new int[26];
+➡️ 26 lowercase letters ka count rakhne ke liye ek array banaya.
+
+for (char c : magazine.toCharArray()) {
+    count[c - 'a']++;
+}
+➡️ Magazine ke har character ka count badhaya.
+
+for (char c : ransomNote.toCharArray()) {
+    if (--count[c - 'a'] < 0) {
+        return false;
+    }
+}
+➡️ Ransom note ke character ke count ko reduce kiya.
+➡️ Agar kisi character ka count zero se neeche chala gaya, toh magazine me wo character available nahi hai — return false.
+
+return true;
+➡️ Agar saare characters available hain, toh true return karo.
+
+🧠 Time Complexity:
+➡️ O(n + m) — n = length of ransomNote, m = length of magazine
+
+🧠 Space Complexity:
+➡️ O(1) — Fixed size array of 26 characters
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,84 @@
+✅ Leetcode 232: Implement Queue using Stacks (Java Solution — Amortized O(1) per operation)
+
+🔧 Optimal Java Code:
+
+import java.util.Stack;
+
+class MyQueue {
+    private Stack<Integer> input;
+    private Stack<Integer> output;
+
+    public MyQueue() {
+        input = new Stack<>();
+        output = new Stack<>();
+    }
+
+    public void push(int x) {
+        input.push(x);
+    }
+
+    public int pop() {
+        peek(); // ensure output stack has current front
+        return output.pop();
+    }
+
+    public int peek() {
+        if (output.isEmpty()) {
+            while (!input.isEmpty()) {
+                output.push(input.pop());
+            }
+        }
+        return output.peek();
+    }
+
+    public boolean empty() {
+        return input.isEmpty() && output.isEmpty();
+    }
+}
+
+📝 Explanation (Line-by-Line):
+
+private Stack<Integer> input;
+private Stack<Integer> output;
+➡️ Do stacks banaye: ek input ke liye aur ek output ke liye.
+
+public MyQueue() {
+    input = new Stack<>();
+    output = new Stack<>();
+}
+➡️ Constructor me dono stacks initialize kiye.
+
+public void push(int x) {
+    input.push(x);
+}
+➡️ Naya element input stack me add karo.
+
+public int pop() {
+    peek(); // Ensure output stack is ready
+    return output.pop();
+}
+➡️ Element nikalne se pehle peek() call karte hain taki output stack ready ho jaye.
+
+public int peek() {
+    if (output.isEmpty()) {
+        while (!input.isEmpty()) {
+            output.push(input.pop());
+        }
+    }
+    return output.peek();
+}
+➡️ Agar output stack empty hai, toh input ka sab kuch output me daal do (reverse order).
+➡️ Fir front of queue output ka top hoga.
+
+public boolean empty() {
+    return input.isEmpty() && output.isEmpty();
+}
+➡️ Queue tabhi empty hogi jab dono stacks empty hon.
+
+🧠 Time Complexity:
+➡️ Amortized O(1) per operation — worst case O(n) during transfer, but rarely.
+
+🧠 Space Complexity:
+➡️ O(n) — n elements stored across two stacks.
+
+🔗 If any need please ask me: https://www.linkedin.com/in/saurabh884095/

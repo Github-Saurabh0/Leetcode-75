@@ -1,0 +1,67 @@
+Leetcode 70: Climbing Stairs - Java Solution (0ms, O(n) time, O(1) space)
+
+✅ Java Code:
+-----------------------------------------------------
+public class Solution {
+    public int climbStairs(int n) {
+        if (n <= 2) return n;
+
+        int first = 1;  // ways to reach step 1
+        int second = 2; // ways to reach step 2
+
+        for (int i = 3; i <= n; i++) {
+            int third = first + second;
+            first = second;
+            second = third;
+        }
+
+        return second;
+    }
+}
+-----------------------------------------------------
+
+🧠 Line-by-Line Explanation:
+
+1. if (n <= 2) return n;
+   -> Agar sirf 1 ya 2 steps hain, toh utne hi ways honge (1 ke liye 1 way, 2 ke liye 2 ways).
+
+2. int first = 1;
+   -> Step 1 tak pahuchne ka sirf 1 hi tareeka hai.
+
+3. int second = 2;
+   -> Step 2 tak pahuchne ke 2 tareeke hain: (1+1) aur (2).
+
+4. Loop: for (int i = 3; i <= n; i++)
+   -> Step 3 se leke n tak sab calculate karte hain.
+
+5. third = first + second;
+   -> Har step ke liye total ways = previous step ke ways + uske pehle waale step ke ways.
+
+6. first = second;
+   -> Pointer shift karte hain for next calculation.
+
+7. second = third;
+   -> Yeh current step ka result hai, jise next step mein use karenge.
+
+8. return second;
+   -> Final answer return karte hain.
+
+📌 Example:
+Input: n = 5
+Output: 8
+
+Explanation:
+Total combinations:
+1+1+1+1+1  
+1+2+1+1  
+1+1+2+1  
+1+1+1+2  
+2+1+1+1  
+2+2+1  
+2+1+2  
+1+2+2
+
+Total = 8 unique ways
+
+For any help, feel free to ask:
+🔗 https://www.linkedin.com/in/saurabh884095/

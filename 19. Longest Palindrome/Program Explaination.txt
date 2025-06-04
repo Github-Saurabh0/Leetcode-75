@@ -1,0 +1,55 @@
+Leetcode 409. Longest Palindrome - Java Solution Efficient O(n), 0ms
+
+✅ Java Code:
+-----------------------------------------------------
+
+class Solution {
+    public int longestPalindrome(String s) {
+        int[] count = new int[128];  // ASCII size for all characters
+        for (char c : s.toCharArray()) {
+            count[c]++;
+        }
+
+        int length = 0;
+        for (int freq : count) {
+            length += freq / 2 * 2;  // Add the largest even part of each character count
+            if (length % 2 == 0 && freq % 2 == 1) {
+                length += 1; // Add one odd character in center if possible
+            }
+        }
+
+        return length;
+    }
+}
+
+🧠 Explanation (Line by Line):
+int[] count = new int[128];
+-> 128 characters ka array banaya (ASCII chars ke liye), har character ka frequency store karne ke liye.
+
+for (char c : s.toCharArray()) { count[c]++; }
+-> Har character ke frequency count kiye.
+
+int length = 0;
+-> Final palindrome ki length calculate karne ke liye variable.
+
+for (int freq : count)
+-> Har character ke frequency ke upar loop chala rahe hain.
+
+length += freq / 2 * 2;
+-> Har frequency ka largest even part add kiya (jaise 3 ka 2, 5 ka 4).
+
+if (length % 2 == 0 && freq % 2 == 1) length += 1;
+-> Agar ek odd frequency hai aur abhi tak koi odd center nahi liya hai, toh ek odd character center mein use karte hain.
+
+return length;
+-> Longest palindrome ka length return karte hain.
+
+🧪 Example:
+
+Input: s = "abccccdd"
+Output: 7
+Explanation:
+We can build "dccaccd" or "dccbccd" → length = 7
+
+Also, if you ever need help — feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

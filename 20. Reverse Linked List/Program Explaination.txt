@@ -1,0 +1,62 @@
+Leetcode 206: Reverse Linked List - Java Solution (0ms, O(n) time, O(1) space)
+
+✅ Java Code:
+-----------------------------------------------------
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) {
+        val = x;
+        next = null;
+    }
+}
+
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;           // Pichla node
+        ListNode curr = head;           // Current node
+        
+        while (curr != null) {
+            ListNode nextTemp = curr.next; // Agla node yaad rakhna
+            curr.next = prev;              // Current ka next ko reverse karna
+            prev = curr;                   // Prev ko aage badhana
+            curr = nextTemp;               // Current ko aage badhana
+        }
+        
+        return prev;  // Naya head
+    }
+}
+-----------------------------------------------------
+
+🧠 Hinglish Explanation Line by Line:
+
+1. ListNode prev = null;
+   -> Reverse karte waqt, sabse pehle "prev" null hota hai.
+
+2. ListNode curr = head;
+   -> Reverse karne ka kaam "head" se start karte hain.
+
+3. while (curr != null)
+   -> Jab tak list khatam nahi hoti, tab tak loop chalayenge.
+
+4. ListNode nextTemp = curr.next;
+   -> Agla node temporarily store kiya, kyunki link toot jayega next line mein.
+
+5. curr.next = prev;
+   -> Ab current ka next "prev" ko point karega — reverse ka main step.
+
+6. prev = curr;
+   -> Prev ko current node par le aaye.
+
+7. curr = nextTemp;
+   -> Aur current ko agle node pe le ja rahe hain.
+
+8. return prev;
+   -> Jab sab reverse ho jaye, tab prev new head ban jata hai.
+
+📌 Example:
+Input: 1 → 2 → 3 → 4 → 5 → NULL  
+Output: 5 → 4 → 3 → 2 → 1 → NULL
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

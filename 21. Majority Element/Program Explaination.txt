@@ -1,0 +1,56 @@
+Leetcode 169: Majority Element - Java Solution (0ms, O(n) time, O(1) space)
+
+✅ Java Code (Moore’s Voting Algorithm):
+-----------------------------------------------------
+public class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 0;
+        Integer candidate = null;
+
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+            count += (num == candidate) ? 1 : -1;
+        }
+
+        return candidate;
+    }
+}
+-----------------------------------------------------
+
+🧠 Hinglish Explanation Line by Line:
+
+1. int count = 0;
+   -> Majority element ke liye count initialize kiya.
+
+2. Integer candidate = null;
+   -> Shuru mein koi majority candidate nahi hota.
+
+3. for (int num : nums)
+   -> Poore array ke elements ke upar loop chalayenge.
+
+4. if (count == 0)
+   -> Agar count 0 ho gaya toh naya candidate set karenge.
+
+5. candidate = num;
+   -> Ab ye num hamara new potential majority ban gaya.
+
+6. count += (num == candidate) ? 1 : -1;
+   -> Agar current num == candidate hai toh count badhao, warna kam karo.
+
+7. return candidate;
+   -> Loop ke baad jo candidate bacha wahi majority element hai (O(n) proof ke basis pe).
+
+📌 Example:
+Input: [3, 2, 3]  
+Output: 3
+
+Input: [2,2,1,1,1,2,2]  
+Output: 2
+
+🧠 Concept: 
+Majority element is the one that appears more than ⌊n / 2⌋ times.
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

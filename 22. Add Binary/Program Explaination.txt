@@ -1,0 +1,57 @@
+Leetcode 67: Add Binary - Java Solution (0ms, O(n) time)
+
+✅ Java Code:
+-----------------------------------------------------
+public class Solution {
+    public String addBinary(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        int i = a.length() - 1, j = b.length() - 1, carry = 0;
+
+        while (i >= 0 || j >= 0 || carry == 1) {
+            int sum = carry;
+            if (i >= 0) sum += a.charAt(i--) - '0';  // a se digit
+            if (j >= 0) sum += b.charAt(j--) - '0';  // b se digit
+            result.append(sum % 2);                 // binary ka current digit
+            carry = sum / 2;                        // carry nikalna
+        }
+
+        return result.reverse().toString();  // answer ko reverse karke return
+    }
+}
+-----------------------------------------------------
+
+🧠 Hinglish Explanation Line by Line:
+
+1. StringBuilder result = new StringBuilder();
+   -> Final answer ko store karne ke liye.
+
+2. int i = a.length() - 1, j = b.length() - 1, carry = 0;
+   -> Dono strings ke end se start karenge, kyunki binary addition right-to-left hota hai.
+
+3. while (i >= 0 || j >= 0 || carry == 1)
+   -> Jab tak dono string ya carry hai, loop chalega.
+
+4. int sum = carry;
+   -> Carry ko sum mein add kiya.
+
+5. if (i >= 0) sum += a.charAt(i--) - '0';
+   -> String a ka digit int mein convert karke sum mein add kiya.
+
+6. if (j >= 0) sum += b.charAt(j--) - '0';
+   -> String b ka digit bhi add kiya.
+
+7. result.append(sum % 2);
+   -> Binary digit sirf 0 ya 1 hota hai, toh last digit append kiya.
+
+8. carry = sum / 2;
+   -> Carry nikal liya (agar 1 + 1 hua toh carry 1 hoga).
+
+9. return result.reverse().toString();
+   -> Answer reverse karke return kiya, kyunki humne last se start kiya tha.
+
+📌 Example:
+Input: a = "1010", b = "1011"  
+Output: "10101"
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

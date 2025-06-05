@@ -1,0 +1,49 @@
+Leetcode 53: Maximum Subarray - Java Solution (0ms, O(n) time)
+
+-------------------------------------------
+
+✅ Java Code:
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int maxSum = nums[0];       // maximum sum so far
+        int currentSum = nums[0];   // current running subarray sum
+
+        for (int i = 1; i < nums.length; i++) {
+            currentSum = Math.max(nums[i], currentSum + nums[i]); // naye element se start ya add
+            maxSum = Math.max(maxSum, currentSum);                // max sum update karo
+        }
+
+        return maxSum;  // final answer return karo
+    }
+}
+
+-------------------------------------------
+
+🧠  Explanation Line by Line:
+
+int maxSum = nums[0];
+→ Pehla element ko max sum aur current sum dono maante hain.
+
+int currentSum = nums[0];
+→ Ye variable track karega current subarray ka sum.
+
+for (int i = 1; i < nums.length; i++) {
+→ Loop second element se chalu karte hain.
+
+currentSum = Math.max(nums[i], currentSum + nums[i]);
+→ Decide karte hain ki naya subarray start karein ya pehle wale mein add karein.
+
+maxSum = Math.max(maxSum, currentSum);
+→ Global max ko update karte hain agar current sum bada ho.
+
+return maxSum;
+→ Final answer return karte hain.
+
+📌 Example:
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: [4,-1,2,1] ka sum = 6
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

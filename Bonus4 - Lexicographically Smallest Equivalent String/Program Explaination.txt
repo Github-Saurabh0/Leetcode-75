@@ -1,0 +1,138 @@
+Chalo is code ko line-by-line mein samjhte hain. Yeh question typically Lexicographically Smallest Equivalent String (Leetcode 1061) se related hai, jisme Union-Find (Disjoint Set Union) data structure use hota hai.
+
+-------------------------------------------
+
+🔧 Part 1: UnionFind Class – Disjoint Set Logic
+
+class UnionFind {
+  private int[] id; // Ye array har character ke parent ko store karta hai
+
+  public UnionFind(int n) {
+    id = new int[n];
+    for (int i = 0; i < n; ++i)
+      id[i] = i; // initially har character ka parent wahi hota hai
+  }
+  
+-------------------------------------------
+
+  
+🧠 Explanation:
+
+id[i] = i → Initially, har character apne aap ka leader hai.
+
+26 letters hai (a–z), isliye new UnionFind(26) call hota hai.
+
+-------------------------------------------
+
+  public void union(int u, int v) {
+    final int i = find(u);
+    final int j = find(v);
+    if (i > j)
+      id[i] = j;
+    else
+      id[j] = i;
+  }
+  
+-------------------------------------------
+
+
+🧠 Explanation:
+
+find(u) and find(v) → dono elements ke root leader find karo.
+
+i > j hai toh chhoti value ko parent banao → taaki hum lexicographically smallest ko leader bana sakein.
+
+For example: 'a' and 'c' ko join karna ho, to 'a' ko leader banayenge.
+
+-------------------------------------------
+
+
+  public int find(int u) {
+    return id[u] == u ? u : (id[u] = find(id[u]));
+  }
+  
+-------------------------------------------
+
+🧠 Explanation:
+
+Ye path compression use karta hai for optimization.
+
+Agar id[u] apna hi leader nahi hai, to uska leader recursively dhoondo aur update karo.
+
+
+-------------------------------------------
+
+🧪 Part 2: Solution Class – Actual Problem Solve
+
+
+class Solution {
+  public String smallestEquivalentString(String s1, String s2, String baseStr) {
+    StringBuilder sb = new StringBuilder();
+    UnionFind uf = new UnionFind(26);
+
+-------------------------------------------
+
+🧠 Explanation:
+
+s1 aur s2 ke corresponding characters equivalent hain.
+
+Hum unko ek group mein jodte hain using Union-Find.
+
+baseStr se final string banani hai using smallest representative character.
+
+    for (int i = 0; i < s1.length(); ++i)
+      uf.union(s1.charAt(i) - 'a', s2.charAt(i) - 'a');
+	  
+-------------------------------------------
+
+🧠 Explanation:
+
+s1[i] aur s2[i] ko union karo.
+
+'a' ko 0, 'b' ko 1 ... 'z' ko 25 treat karte hain (ASCII - 'a').
+
+-------------------------------------------
+
+    for (final char c : baseStr.toCharArray())
+      sb.append((char) ('a' + uf.find(c - 'a')));
+	  
+-------------------------------------------	  
+
+🧠 Explanation:
+
+Har character ka smallest equivalent leader find karo.
+
+Us leader ke index se actual character nikaal ke result string mein jod do.
+
+-------------------------------------------
+    return sb.toString();
+  }
+}
+
+-------------------------------------------
+
+
+🧠 Explanation:
+
+Final lexicographically smallest equivalent string return karo.
+
+✅ Example
+
+s1 = "parker"
+s2 = "morris"
+baseStr = "parser"
+
+Output: "makkek"
+Kyun?
+Characters "p" aur "m" same group mein honge.
+"a" aur "o", "r" aur "r", "k" aur "i" ... etc.
+Har character ka smallest possible representative leke baseStr transform hoti hai.
+
+💡 Summary
+Union-Find: Group banane ke liye.
+Lexicographical smallest ko root banane ke liye if (i > j) logic.
+Efficient path compression for find() to speed up queries.
+Overall time complexity: O(n × α(n)) ≈ O(n) (almost linear with path compression).
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

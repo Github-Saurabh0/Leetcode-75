@@ -1,0 +1,69 @@
+Leetcode 543: Diameter of Binary Tree - Java Solution (0ms, O(n) time)
+
+-------------------------------------------
+
+✅ Java Code:
+
+class Solution {
+    private int maxDiameter = 0;  // global variable for max diameter
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        dfs(root);               // DFS call to calculate heights and update diameter
+        return maxDiameter;      // return final max diameter
+    }
+
+    private int dfs(TreeNode node) {
+        if (node == null) return 0;  // base case: null node ki height 0 hoti hai
+
+        int leftHeight = dfs(node.left);    // left subtree ki height
+        int rightHeight = dfs(node.right);  // right subtree ki height
+
+        maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
+        // diameter update karo: leftHeight + rightHeight
+
+        return 1 + Math.max(leftHeight, rightHeight);
+        // current node ki height = 1 + max(left, right)
+    }
+}
+
+-------------------------------------------
+
+🧠 Explanation Line by Line:
+
+private int maxDiameter = 0;
+→ Ye global variable hai jisme maximum diameter store karenge.
+
+public int diameterOfBinaryTree(TreeNode root) {
+→ Main function jo diameter return karega.
+
+dfs(root);
+→ DFS call karke har node ki height calculate karenge aur diameter update karenge.
+
+return maxDiameter;
+→ Max diameter return karenge after DFS completes.
+
+private int dfs(TreeNode node) {
+→ Recursive DFS function har node ki height calculate karta hai.
+
+if (node == null) return 0;
+→ Agar node null ho to height 0 consider karte hain.
+
+int leftHeight = dfs(node.left);
+→ Left subtree ki height recursive call se milti hai.
+
+int rightHeight = dfs(node.right);
+→ Right subtree ki height recursive call se milti hai.
+
+maxDiameter = Math.max(maxDiameter, leftHeight + rightHeight);
+→ Diameter update karte hain, jo ki left aur right height ka sum hota hai.
+
+return 1 + Math.max(leftHeight, rightHeight);
+→ Node ki height return karte hain: 1 (current node) plus max left ya right height.
+
+📌 Example:
+Input: root = [1,2,3,4,5]
+Output: 3
+Longest path: 4 → 2 → 1 → 3 (3 edges)
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

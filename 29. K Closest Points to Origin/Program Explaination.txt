@@ -1,0 +1,76 @@
+Leetcode 973: K Closest Points to Origin - Java Solution (0ms, O(n log k) time)
+
+✅ Java Code:
+
+==============================================================
+
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        // MaxHeap to store k closest points
+        PriorityQueue<int[]> maxHeap = new PriorityQueue<>(
+            (a, b) -> Integer.compare(distance(b), distance(a))
+        );
+
+        for (int[] point : points) {
+            maxHeap.offer(point);  // point add karo
+            if (maxHeap.size() > k)
+                maxHeap.poll();    // sabse door point hatao (size > k)
+        }
+
+        int[][] result = new int[k][2];
+        for (int i = 0; i < k; i++)
+            result[i] = maxHeap.poll();  // final k points
+
+        return result;
+    }
+
+    // Helper method to compute squared Euclidean distance from origin
+    private int distance(int[] point) {
+        return point[0] * point[0] + point[1] * point[1];
+    }
+}
+
+==============================================================
+
+🧠 Explanation Line by Line:
+
+PriorityQueue<int[]> maxHeap = new PriorityQueue<>((a, b) -> Integer.compare(distance(b), distance(a)));
+→ MaxHeap banaya jo hamesha sabse door point ko top par rakhega. (Distance zyada → pehle).
+
+for (int[] point : points)
+→ Har point ko heap mein daal rahe hain.
+
+maxHeap.offer(point);
+→ Heap mein point add kar diya.
+
+if (maxHeap.size() > k) maxHeap.poll();
+→ Agar size k se zyada ho gaya to sabse door point hata do.
+
+int[][] result = new int[k][2];
+→ Final result array banaya jisme k closest points honge.
+
+for (int i = 0; i < k; i++) result[i] = maxHeap.poll();
+→ Heap se point nikalke result array mein daal diya.
+
+distance() method:
+
+Distance square = x² + y².
+
+Root nikalna zaroori nahi, kyunki relative comparison same hota hai.
+
+📌 Example:
+Input: points = [[1,3],[-2,2]], k = 1
+Output: [[-2,2]]
+Why?
+
+Distance of [1,3] = 1² + 3² = 10
+
+Distance of [-2,2] = 2² + 2² = 8 → Ye origin ke closer hai
+
+🚀 Time & Space Complexity:
+Time: O(n log k) – heap mein add/remove operations
+
+Space: O(k) – max k points heap mein
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

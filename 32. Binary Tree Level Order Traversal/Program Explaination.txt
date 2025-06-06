@@ -1,0 +1,84 @@
+Leetcode 102: Binary Tree Level Order Traversal - Java Solution (0ms, O(n) time)
+
+✅ Java Code:
+
+==============================================================
+
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;  // agar tree empty hai to return empty list
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);  // root node ko queue mein daala
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();  // current level ke nodes count
+            List<Integer> level = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();  // queue se ek node nikala
+                level.add(node.val);          // uska value level list mein daala
+
+                if (node.left != null) queue.offer(node.left);   // left child add karo
+                if (node.right != null) queue.offer(node.right); // right child add karo
+            }
+
+            result.add(level);  // current level complete, result mein daala
+        }
+
+        return result;
+    }
+}
+
+==============================================================
+
+🧠 Explanation Line by Line:
+
+List<List<Integer>> result = new ArrayList<>();
+→ Final answer list banaya har level ke liye.
+
+if (root == null) return result;
+→ Agar tree hi khaali hai to empty list return kar do.
+
+Queue<TreeNode> queue = new LinkedList<>();
+→ BFS (level order) ke liye queue banayi.
+
+queue.offer(root);
+→ Root node ko queue mein daala.
+
+while (!queue.isEmpty())
+→ Jab tak queue khaali nahi hoti, levels process karo.
+
+int size = queue.size();
+→ Is level mein kitne nodes hain, ye count liya.
+
+List<Integer> level = new ArrayList<>();
+→ Is level ke values ko temporarily store karenge.
+
+TreeNode node = queue.poll();
+→ Queue se ek node nikala.
+
+level.add(node.val);
+→ Uska value current level mein daala.
+
+if (node.left != null)
+→ Agar left child hai to queue mein daala.
+
+if (node.right != null)
+→ Agar right child hai to bhi queue mein daala.
+
+result.add(level);
+→ Poora level process hone ke baad result mein daal diya.
+
+📌 Example:
+Input: [3,9,20,null,null,15,7]
+Output: [[3],[9,20],[15,7]]
+
+🚀 Time & Space Complexity:
+Time: O(n) → har node ek baar visit ho raha hai
+
+Space: O(n) → queue + result storage
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

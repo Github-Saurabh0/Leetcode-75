@@ -1,0 +1,64 @@
+Leetcode 3: Longest Substring Without Repeating Characters - Java Solution (0ms, O(n) time)
+
+✅ Java Code:
+
+==============================================================
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int[] index = new int[128];  // ASCII char ke last index store karega
+        int maxLen = 0;
+        int start = 0;  // current window ka start
+
+        for (int end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            start = Math.max(start, index[c]);  // repeating character ko skip karo
+            maxLen = Math.max(maxLen, end - start + 1);  // max length update karo
+            index[c] = end + 1;  // character ka next valid position store karo
+        }
+
+        return maxLen;
+    }
+}
+
+==============================================================
+
+🧠  Explanation Line by Line:
+
+int[] index = new int[128];
+→ Har character ka last seen index store karne ke liye (ASCII 128 characters).
+
+int maxLen = 0;
+→ Ab tak ka longest substring length track karega.
+
+int start = 0;
+→ Current substring ka starting index (window ka left side).
+
+for (int end = 0; end < s.length(); end++)
+→ Har character pe loop chalayenge (right pointer).
+
+char c = s.charAt(end);
+→ Current character ko nikaala.
+
+start = Math.max(start, index[c]);
+→ Agar character repeat ho gaya to start pointer ko uske next valid position pe le jao.
+
+maxLen = Math.max(maxLen, end - start + 1);
+→ Har iteration pe current substring length check karke maxLen update karo.
+
+index[c] = end + 1;
+→ Is character ka latest index + 1 store karo (kyunki 0-based index hai).
+
+📌 Example:
+
+Input: "abcabcbb"
+Output: 3
+Explanation: "abc" is the longest substring without repeating characters.
+
+🚀 Time & Space Complexity:
+Time: O(n)
+
+Space: O(128) (constant space for ASCII)
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,72 @@
+Leetcode 133: Clone Graph - Java DFS Solution (0ms, O(n + e) time)
+
+✅ Java Code:
+
+==============================================================
+
+class Solution {
+    private Map<Node, Node> map = new HashMap<>();
+
+    public Node cloneGraph(Node node) {
+        if (node == null) return null;
+
+        if (map.containsKey(node)) return map.get(node);
+
+        Node clone = new Node(node.val);
+        map.put(node, clone); // Original → Clone map kiya
+
+        for (Node neighbor : node.neighbors) {
+            clone.neighbors.add(cloneGraph(neighbor)); // DFS call for neighbors
+        }
+
+        return clone;
+    }
+}
+
+==============================================================
+
+🧠 Explanation Line by Line:
+
+Map<Node, Node> map = new HashMap<>();
+→ Map maintain kar rahe hain jisme original node se uska clone linked hai.
+
+if (node == null) return null;
+→ Agar graph empty hai, to null return karo.
+
+if (map.containsKey(node)) return map.get(node);
+→ Agar node pehle se clone ho chuka hai, to usi clone ko return kar do (cycle ya multiple reference handle).
+
+Node clone = new Node(node.val);
+→ Naya node banaya, same value ke saath.
+
+map.put(node, clone);
+→ Original node ke saath clone ko map mein add kiya.
+
+for (Node neighbor : node.neighbors)
+→ Har neighbor ke liye DFS se cloneGraph call kiya.
+
+clone.neighbors.add(cloneGraph(neighbor));
+→ Clone node ke neighbors mein cloned neighbor ko add kiya.
+
+return clone;
+→ Return final cloned node (current node ka clone).
+
+📌 Example:
+Input: Node with neighbors forming a connected graph
+Output: Deep copy of same graph with new Node objects
+
+🚀 Time & Space Complexity:
+Time: O(n + e)
+
+Space: O(n) (Recursion + HashMap)
+
+🧠 When to use DFS over BFS:
+
+DFS is naturally recursive and sometimes more performant for sparse graphs.
+
+BFS uses more memory because of queue size.
+
+DFS is easy to write cleanly with recursion.
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

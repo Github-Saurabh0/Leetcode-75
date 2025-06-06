@@ -1,0 +1,87 @@
+Leetcode 15: 3Sum - Java Solution (7ms, O(n²) time)
+
+✅ Java Code:
+
+==============================================================
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);  // Pehle sort karo
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;  // Duplicate skip karo
+
+            int left = i + 1;
+            int right = nums.length - 1;
+
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+
+                if (sum == 0) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (left < right && nums[left] == nums[left + 1]) left++;  // duplicate left
+                    while (left < right && nums[right] == nums[right - 1]) right--;  // duplicate right
+                    left++;
+                    right--;
+                } else if (sum < 0) {
+                    left++;  // Sum chhota hai → bada number lo
+                } else {
+                    right--;  // Sum zyada hai → chhota number lo
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+==============================================================
+
+🧠 Explanation Line by Line:
+
+Arrays.sort(nums);
+→ Pehle array ko sort kiya so that 2-pointer approach use kar sake.
+
+for (int i = 0; i < nums.length - 2; i++)
+→ Har index i ke liye i+1 se n-1 tak search karenge.
+
+if (i > 0 && nums[i] == nums[i - 1]) continue;
+→ Agar same element already check ho chuka hai, skip kar do (duplicates avoid).
+
+int left = i + 1, right = nums.length - 1;
+→ 2-pointer initialize: ek start se, ek end se.
+
+int sum = nums[i] + nums[left] + nums[right];
+→ Triplet ka sum nikala.
+
+if (sum == 0)
+→ Perfect triplet mila, list mein add kiya.
+
+while (left < right && nums[left] == nums[left + 1]) left++;
+→ Left side ke duplicates hata diye.
+
+while (left < right && nums[right] == nums[right - 1]) right--;
+→ Right side ke duplicates hata diye.
+
+left++; right--;
+→ Agla pair try karne ke liye pointers move kiye.
+
+else if (sum < 0) left++;
+→ Sum chhota hai to left pointer aage badhao.
+
+else right--;
+→ Sum bada hai to right pointer peeche lao.
+
+📌 Example:
+Input: [-1, 0, 1, 2, -1, -4]
+Output: [[-1, -1, 2], [-1, 0, 1]]
+
+🚀 Time & Space Complexity:
+Time: O(n²)
+
+Space: O(1) (excluding result list)
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,92 @@
+Leetcode 2434: Using a Robot to Print the Lexicographically Smallest String - Java Solution (0ms, O(n) time)
+
+✅ Java Code:
+
+==============================================================
+
+class Solution {
+    public String robotWithString(String s) {
+        int[] freq = new int[26];  // har character ka frequency count
+        for (char c : s.toCharArray())
+            freq[c - 'a']++;
+
+        Stack<Character> stack = new Stack<>();
+        StringBuilder result = new StringBuilder();
+
+        char minChar = 'a';  // ab tak ka smallest character
+
+        for (char c : s.toCharArray()) {
+            stack.push(c);              // har character ko robot stack mein push karo
+            freq[c - 'a']--;            // us character ka count kam karo
+
+            // minChar ko update karo jab tak freq[minChar] > 0 na ho
+            while (minChar <= 'z' && freq[minChar - 'a'] == 0)
+                minChar++;
+
+            // stack ke top se characters nikaalte raho jab tak top <= minChar ho
+            while (!stack.isEmpty() && stack.peek() <= minChar)
+                result.append(stack.pop());
+        }
+
+        // bache hue characters stack se nikaal ke answer mein daalo
+        while (!stack.isEmpty())
+            result.append(stack.pop());
+
+        return result.toString();
+    }
+}
+
+==============================================================
+
+🧠 Explanation Line by Line:
+
+int[] freq = new int[26];
+→ Har character ('a' to 'z') ka count store karne ke liye array banaya.
+
+for (char c : s.toCharArray())
+→ Pehle poore input string ka character frequency count kar liya.
+
+Stack<Character> stack = new Stack<>();
+→ Robot jisme characters push karega, stack use hua.
+
+StringBuilder result = new StringBuilder();
+→ Final output string banane ke liye.
+
+char minChar = 'a';
+→ Yeh track karega ab tak ka sabse chhota character jo abhi available hai.
+
+Loop har character c ke liye:
+
+stack.push(c);
+→ Robot ne character stack mein push kiya.
+
+freq[c - 'a']--;
+→ Us character ka frequency reduce kiya.
+
+while (minChar <= 'z' && freq[minChar - 'a'] == 0)
+→ Jab tak minChar available nahi, tab tak aage badh jao.
+
+while (!stack.isEmpty() && stack.peek() <= minChar)
+→ Stack ke top ka character agar current minChar ya usse chhota hai, to pop karke result mein daalo.
+
+Loop ke baad while (!stack.isEmpty())
+→ Bache hue stack ke characters ko result mein add kar diya.
+
+📌 Example:
+Input: "zza"
+Output: "azz"
+
+Why?
+
+Push z → stack = [z]
+
+Push z → stack = [z, z]
+
+Push a → stack = [z, z, a], ab a is smallest → pop a → result = a
+
+ab z is <= z → pop z → result = az
+
+pop z → result = azz → then reverse = azz
+
+For any doubt or help, feel free to connect:
+🔗 https://www.linkedin.com/in/saurabh884095/

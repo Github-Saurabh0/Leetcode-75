@@ -1,0 +1,80 @@
+✅ Leetcode 207: Course Schedule – Java Solution (0ms, O(V + E) time)
+
+==============================================================
+
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> graph = new ArrayList<>();
+        int[] indegree = new int[numCourses];
+
+        // Step 1: Initialize graph
+        for (int i = 0; i < numCourses; i++)
+            graph.add(new ArrayList<>());
+
+        // Step 2: Build graph & indegree
+        for (int[] pre : prerequisites) {
+            int course = pre[0], prereq = pre[1];
+            graph.get(prereq).add(course);
+            indegree[course]++;
+        }
+
+        // Step 3: Push courses with 0 indegree
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++)
+            if (indegree[i] == 0)
+                q.offer(i);
+
+        // Step 4: Process queue
+        int completed = 0;
+        while (!q.isEmpty()) {
+            int course = q.poll();
+            completed++;
+            for (int next : graph.get(course)) {
+                if (--indegree[next] == 0)
+                    q.offer(next);
+            }
+        }
+
+        return completed == numCourses;
+    }
+}
+
+==============================================================
+
+🧠 Explanation Line by Line:
+List<List<Integer>> graph = new ArrayList<>();
+→ Graph banaya jisme har course ke baad kya course padna hai, woh likha hai.
+
+int[] indegree = new int[numCourses];
+→ Har course ke liye kitne prerequisites chahiye woh track karte hai.
+
+graph.get(prereq).add(course);
+→ Prerequisite ke baad ka course graph mein add kiya.
+
+indegree[course]++;
+→ Jab kisi course pe depend kar rahe ho, uska indegree badha diya.
+
+if (indegree[i] == 0) q.offer(i);
+→ Jinke prerequisites 0 hai, unko queue mein daala start ke liye.
+
+int completed = 0;
+→ Count track karega kitne course hum complete kar paaye.
+
+if (--indegree[next] == 0)
+→ Prerequisite complete ho gaya, toh next course queue mein daal do.
+
+return completed == numCourses;
+→ Agar sab course complete ho gaye to return true.
+
+📌 Example:
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: Pehle course 0, fir course 1 kar sakte ho.
+
+⏱️ Time & Space Complexity:
+Time: O(V + E) → V = number of courses, E = number of dependencies
+
+Space: O(V + E) → Graph + Indegree + Queue
+
+For any help or guidance, always here bhai 😎
+🔗 https://www.linkedin.com/in/saurabh884095/

@@ -72,7 +72,5 @@ Time: O(n log k) → n = length of string, k = unique chars
 
 Space: O(n) → TreeMap + result string
 
-Let me know if you want the Stack-based O(n) version (slightly different logic but same result).
-
 For any help or doubt:
 🔗 https://www.linkedin.com/in/saurabh884095/

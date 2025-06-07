@@ -1,0 +1,73 @@
+✅ Leetcode 150: Evaluate Reverse Polish Notation – Java (0ms, O(n) Time)
+
+==============================================================
+
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+
+        for (String token : tokens) {
+            if (isOperator(token)) {
+                int b = stack.pop();  // Second operand
+                int a = stack.pop();  // First operand
+                stack.push(applyOp(a, b, token));
+            } else {
+                stack.push(Integer.parseInt(token));
+            }
+        }
+
+        return stack.pop();
+    }
+
+    private boolean isOperator(String token) {
+        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/");
+    }
+
+    private int applyOp(int a, int b, String op) {
+        switch (op) {
+            case "+": return a + b;
+            case "-": return a - b;
+            case "*": return a * b;
+            default:  return a / b;  // Division
+        }
+    }
+}
+
+==============================================================
+
+🧠 Explanation Line by Line:
+Stack<Integer> stack = new Stack<>();
+→ Operands ko store karne ke liye stack use kiya.
+
+if (isOperator(token))
+→ Agar token operator hai, toh 2 operands stack se nikaal lo.
+
+int b = stack.pop(); int a = stack.pop();
+→ Dhyan do: pehle b, fir a nikaalna hota hai, kyunki order important hai (a op b).
+
+stack.push(applyOp(a, b, token));
+→ Result ko stack mein dubara daal diya.
+
+Integer.parseInt(token)
+→ Agar operator nahi hai, toh integer convert karke stack mein daal do.
+
+stack.pop()
+→ Last mein result nikaal lo (final answer).
+
+📌 Example:
+Input: ["2","1","+","3","*"]
+Step-by-step:
+
+Copy
+Edit
+2 1 + → 3
+3 * → 9
+Output: 9
+
+⏱️ Time & Space Complexity:
+Time: O(n) (har token ek baar visit)
+
+Space: O(n) (stack ke liye)
+
+For help or guidance:
+🔗 https://www.linkedin.com/in/saurabh884095/

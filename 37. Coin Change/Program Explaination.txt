@@ -54,11 +54,5 @@ Time: O(n × amount)
 Space: O(amount)
 → 1D DP array
 
-Let me know if you want:
-
-Top-down (memoization) approach
-
-Print actual coin combinations used
-
 For more help:
 🔗 https://www.linkedin.com/in/saurabh884095/

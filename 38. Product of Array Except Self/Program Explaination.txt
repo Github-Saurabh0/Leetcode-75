@@ -1,0 +1,67 @@
+✅ Leetcode 238: Product of Array Except Self – Java (1ms, O(n) Time)
+
+
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int n = nums.length;
+        int[] result = new int[n];
+
+        // Step 1: Prefix product
+        result[0] = 1;
+        for (int i = 1; i < n; i++) {
+            result[i] = result[i - 1] * nums[i - 1];
+        }
+
+        // Step 2: Suffix product and multiply with prefix
+        int right = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            result[i] *= right;
+            right *= nums[i];
+        }
+
+        return result;
+    }
+}
+
+
+🧠 Explanation Line by Line:
+int[] result = new int[n];
+→ Output array jisme har index ke liye answer store hoga.
+
+result[0] = 1;
+→ First element ke left mein koi element nahi hota, isliye 1.
+
+First loop (left to right):
+→ Har index ke left ka product calculate karke result[] mein daal rahe hain.
+
+right = 1;
+→ Right side ka product maintain karne ke liye.
+
+Second loop (right to left):
+→ result[i] *= right;
+→ Left + Right product mil gaya.
+→ Fir right *= nums[i]; → Next element ke liye update.
+
+return result;
+→ Final array return kar diya.
+
+📌 Example:
+Input: nums = [1, 2, 3, 4]
+Output: [24, 12, 8, 6]
+→ Explanation:
+
+Index 0: 2 × 3 × 4 = 24
+
+Index 1: 1 × 3 × 4 = 12
+
+Index 2: 1 × 2 × 4 = 8
+
+Index 3: 1 × 2 × 3 = 6
+
+⏱️ Time & Space Complexity:
+Time: O(n) – 2 linear passes
+
+Space: O(1) extra (excluding result array)
+
+For any help anytime:
+🔗 https://www.linkedin.com/in/saurabh884095/

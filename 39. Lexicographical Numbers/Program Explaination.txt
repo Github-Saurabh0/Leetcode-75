@@ -1,0 +1,55 @@
+✅ Leetcode 386: Lexicographical Numbers – Java (0ms, O(n) Time)
+
+
+class Solution {
+    public List<Integer> lexicalOrder(int n) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 1; i <= 9; i++) {
+            dfs(i, n, result);
+        }
+        return result;
+    }
+
+    private void dfs(int current, int n, List<Integer> result) {
+        if (current > n) return;
+        result.add(current);
+        for (int i = 0; i <= 9; i++) {
+            int next = current * 10 + i;
+            if (next > n) return;
+            dfs(next, n, result);
+        }
+    }
+}
+
+
+🧠 Explanation Line by Line:
+List<Integer> result = new ArrayList<>();
+→ Final lexicographical order numbers store karenge.
+
+for (int i = 1; i <= 9; i++) dfs(i, n, result);
+→ 1 se 9 tak DFS chalao kyunki 0 se start nahi kar sakte.
+
+dfs(current, n, result)
+→ Recursive function har number ke aage 0 se 9 add karke explore karta hai.
+
+if (current > n) return;
+→ Base condition: agar current number n se bada ho gaya toh return.
+
+result.add(current);
+→ Valid number ko result mein add karo.
+
+for (int i = 0; i <= 9; i++)
+→ Next digit add karke naye number banate jao (lexicographical tree jaisa).
+
+📌 Example:
+Input: n = 13
+Output:
+[1,10,11,12,13,2,3,4,5,6,7,8,9]
+
+⏱️ Time & Space Complexity:
+Time: O(n) → Har number ek baar visit hota hai.
+
+Space: O(n) → List + recursion stack (in worst case).
+
+For any doubt or help:
+🔗 https://www.linkedin.com/in/saurabh884095/

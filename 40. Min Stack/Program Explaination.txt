@@ -1,0 +1,69 @@
+✅ Leetcode 155: Min Stack – Java (0ms, O(1) Time)
+
+class MinStack {
+    private Stack<Integer> stack;
+    private Stack<Integer> minStack;
+
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+
+    public void push(int val) {
+        stack.push(val);
+        if (minStack.isEmpty() || val <= minStack.peek()) {
+            minStack.push(val);
+        }
+    }
+
+    public void pop() {
+        int removed = stack.pop();
+        if (removed == minStack.peek()) {
+            minStack.pop();
+        }
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+
+
+🧠 Explanation Line by Line:
+Stack<Integer> stack, minStack;
+→ stack: real values
+→ minStack: track current minimums
+
+push(val)
+→ Normal stack mein daal diya
+→ Agar val chhota ya equal hai current min se, toh minStack mein bhi daal diya
+
+pop()
+→ Agar jo element nikala wo current min tha (top of minStack), toh usse bhi hata diya
+
+top()
+→ Stack ka top return kar diya
+
+getMin()
+→ minStack ka top hi current min hota hai, use return kar diya
+
+📌 Example:
+MinStack obj = new MinStack();
+obj.push(-2);
+obj.push(0);
+obj.push(-3);
+obj.getMin();   // return -3
+obj.pop();
+obj.top();      // return 0
+obj.getMin();   // return -2
+⏱️ Time & Space Complexity:
+Time: O(1) for push(), pop(), top(), getMin()
+
+Space: O(n) for storing elements and mins
+
+For help anytime:
+🔗 https://www.linkedin.com/in/saurabh884095/

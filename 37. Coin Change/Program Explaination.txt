@@ -1,0 +1,64 @@
+✅ Leetcode 322: Coin Change – Java (1ms, O(amount × n) Time)
+
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int max = amount + 1;
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, max);  // Initialize with a large value
+        dp[0] = 0;  // 0 coins needed to make amount 0
+
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);  // Use the coin
+            }
+        }
+
+        return dp[amount] == max ? -1 : dp[amount];  // -1 if no solution
+    }
+}
+
+
+🧠  Explanation Line by Line:
+int max = amount + 1;
+→ Ek bada number set kiya (jisse min compare kar sakein).
+
+int[] dp = new int[amount + 1];
+→ dp[i] batata hai ki i amount banane ke liye minimum kitne coins lagenge.
+
+Arrays.fill(dp, max);
+→ Sabko initially large value se bhar diya.
+
+dp[0] = 0;
+→ 0 amount banane ke liye 0 coins chahiye.
+
+Outer loop: for (int coin : coins)
+→ Har coin ko try karo.
+
+Inner loop: for (int i = coin; i <= amount; i++)
+→ Coin se shuru karo kyunki uske pehle banana possible hi nahi.
+
+dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+→ Either previous value ya phir is coin ko use karke banane ka best.
+
+return dp[amount] == max ? -1 : dp[amount];
+→ Agar koi combination bana hi nahi, toh -1 return karo.
+
+📌 Example:
+Input: coins = [1, 2, 5], amount = 11
+Output: 3 (11 = 5 + 5 + 1)
+
+⏱️ Time & Space Complexity:
+Time: O(n × amount)
+→ n = number of coins
+
+Space: O(amount)
+→ 1D DP array
+
+Let me know if you want:
+
+Top-down (memoization) approach
+
+Print actual coin combinations used
+
+For more help:
+🔗 https://www.linkedin.com/in/saurabh884095/

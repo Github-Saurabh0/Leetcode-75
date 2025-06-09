@@ -1,0 +1,71 @@
+✅ Leetcode 440: K-th Smallest in Lexicographical Order – Java (4ms, O(log n × log n))
+
+class Solution {
+    public int findKthNumber(int n, int k) {
+        int current = 1;
+        k -= 1;
+
+        while (k > 0) {
+            long steps = countSteps(n, current, current + 1);
+            if (steps <= k) {
+                k -= steps;
+                current += 1;
+            } else {
+                current *= 10;
+                k -= 1;
+            }
+        }
+
+        return current;
+    }
+
+    private long countSteps(int n, long curr, long next) {
+        long steps = 0;
+        while (curr <= n) {
+            steps += Math.min(n + 1L, next) - curr;
+            curr *= 10;
+            next *= 10;
+        }
+        return steps;
+    }
+}
+
+🧠 Explanation Line by Line:
+int current = 1; k -= 1;
+→ Hum 1 se start karte hain, aur pehla number already le liya.
+
+while (k > 0)
+→ Jab tak k reach nahi hota, tab tak number build karte jao.
+
+countSteps(n, current, current+1)
+→ Lexicographically between current aur current+1 ke beech kitne numbers hain, wo count karo.
+
+if (steps <= k)
+→ Agar current subtree me k-th number nahi hai, toh aage badho (current++) aur steps reduce karo.
+
+else
+→ Agar subtree ke andar hai, toh current * 10 karo (down a level), aur k-- (kyunki ek aur digit fix kar liya).
+
+countSteps()
+→ Har level par dekhta hai ki curr se next tak kitne numbers exist karte hain.
+
+📌 Example:
+Input: n = 13, k = 2
+Lexicographical Order: 1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9
+Output: 10
+
+⏱️ Time & Space Complexity:
+Time: O(log n × log n) – Each level checks how many numbers under a prefix
+
+Space: O(1) – No extra space used
+
+Feel free to connect if you have doubts or want custom help:
+🔗 https://www.linkedin.com/in/saurabh884095/
+
+
+
+
+
+
+
+

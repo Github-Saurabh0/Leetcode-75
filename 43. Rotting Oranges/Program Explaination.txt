@@ -1,0 +1,80 @@
+✅ Leetcode 994: Rotting Oranges – Java (2ms, O(m × n) Time)
+
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int rows = grid.length, cols = grid[0].length;
+        Queue<int[]> queue = new LinkedList<>();
+        int fresh = 0, time = 0;
+
+        // Step 1: Find all rotten oranges and count fresh
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == 2) {
+                    queue.offer(new int[]{i, j});
+                } else if (grid[i][j] == 1) {
+                    fresh++;
+                }
+            }
+        }
+
+        // Step 2: BFS to rot adjacent oranges
+        int[][] directions = {{0,1},{1,0},{0,-1},{-1,0}};
+        while (!queue.isEmpty() && fresh > 0) {
+            int size = queue.size();
+            time++;
+
+            for (int i = 0; i < size; i++) {
+                int[] cell = queue.poll();
+                for (int[] d : directions) {
+                    int r = cell[0] + d[0], c = cell[1] + d[1];
+                    if (r >= 0 && c >= 0 && r < rows && c < cols && grid[r][c] == 1) {
+                        grid[r][c] = 2;
+                        queue.offer(new int[]{r, c});
+                        fresh--;
+                    }
+                }
+            }
+        }
+
+        return fresh == 0 ? time : -1;
+    }
+}
+
+
+🧠  Explanation Line by Line:
+Queue<int[]> queue = new LinkedList<>();
+→ Rotten oranges ka location store karne ke liye queue.
+
+fresh++
+→ Fresh oranges ko count karte hain.
+
+while (!queue.isEmpty() && fresh > 0)
+→ Jab tak rotten process ho rahe hain aur fresh bache hain.
+
+time++
+→ Har level ke baad 1 minute lagta hai.
+
+for (int i = 0; i < size; i++)
+→ Queue ke current size (same level) ke sabhi elements process karo.
+
+if (grid[r][c] == 1)
+→ Agar adjacent cell fresh orange hai toh use rot karo.
+
+return fresh == 0 ? time : -1;
+→ Agar sab fresh oranges rot ho gaye toh time, warna -1.
+
+📌 Example:
+Input:
+
+[[2,1,1],
+ [1,1,0],
+ [0,1,1]]
+Output: 4 → Sab oranges ko rot hone mein 4 minutes lage.
+
+⏱️ Time & Space Complexity:
+Time: O(m × n) – Har cell ek hi baar process hota hai
+
+Space: O(m × n) – Queue worst case
+
+For help or networking:
+🔗 https://www.linkedin.com/in/saurabh884095/

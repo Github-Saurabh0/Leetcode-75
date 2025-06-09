@@ -1,0 +1,62 @@
+✅ Leetcode 98: Validate Binary Search Tree – Java (0ms, O(n) Time)
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+
+    private boolean validate(TreeNode node, long min, long max) {
+        if (node == null) return true;
+        if (node.val <= min || node.val >= max) return false;
+        return validate(node.left, min, node.val) && validate(node.right, node.val, max);
+    }
+}
+
+
+🧠 Explanation Line by Line:
+boolean isValidBST(TreeNode root)
+→ Ye hi main function hai jo tree ko valid BST check karta hai.
+
+validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+→ Initially root node ka valid range pura hota hai.
+
+if (node == null) return true;
+→ Agar node null hai toh BST valid hai.
+
+if (node.val <= min || node.val >= max) return false;
+→ BST condition fail ho gayi → left < root < right nahi mila.
+
+validate(node.left, min, node.val)
+→ Left subtree ke liye upper bound = current node value.
+
+validate(node.right, node.val, max)
+→ Right subtree ke liye lower bound = current node value.
+
+📌 Example:
+
+Input: [2,1,3]
+Output: true
+
+      2
+     / \
+    1   3
+
+
+Input: [5,1,4,null,null,3,6]
+Output: false
+
+      5
+     / \
+    1   4
+       / \
+      3   6
+	  
+→ 4 ke left mein 3 hai jo 5 se chhota hai → invalid BST
+⏱️ Time & Space Complexity:
+Time: O(n) → Har node ek hi baar visit hoti hai
+
+Space: O(h) → Recursion stack (h = height of tree)
+
+
+For any help:
+🔗 https://www.linkedin.com/in/saurabh884095/

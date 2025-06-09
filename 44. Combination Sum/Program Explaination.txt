@@ -51,11 +51,11 @@ current.remove(current.size() - 1);
 
 📌 Example:
 Input:
-
 candidates = [2,3,6,7], target = 7
-Output:
 
+Output:
 [[2,2,3], [7]]
+
 ⏱️ Time & Space Complexity:
 Time: O(2^target) worst-case (each number can be picked/unpicked)
 

@@ -1,0 +1,92 @@
+✅ Leetcode 3442: Maximum Difference Between Even and Odd Frequency I – Java Solution (0ms, O(n) Time)
+
+
+class Solution {
+  public int maxDifference(String s) {
+    int[] count = new int[26];
+    int maxOdd = 0;
+    int minEven = s.length();
+
+    for (final char c : s.toCharArray())
+      ++count[c - 'a'];
+
+    for (final int freq : count) {
+      if (freq == 0)
+        continue;
+      if (freq % 2 == 0)
+        minEven = Math.min(minEven, freq);
+      else
+        maxOdd = Math.max(maxOdd, freq);
+    }
+
+    return maxOdd - minEven;
+  }
+}
+
+
+🧠 Explanation Line-by-Line:
+int[] count = new int[26];
+→ Alphabet 'a' se 'z' tak har letter ke liye frequency store karne ke liye array banaya.
+
+int maxOdd = 0;
+→ Ab tak mile sabse zyada frequency wale odd character ko store karega.
+
+int minEven = s.length();
+→ Ab tak mile sabse kam frequency wale even character ko store karega.
+
+for (final char c : s.toCharArray()) ++count[c - 'a'];
+→ String ke har character ki frequency count kar rahe hain.
+→ 'a' - 'a' = 0, 'b' - 'a' = 1, ... 'z' - 'a' = 25.
+
+for (final int freq : count)
+→ Ab hum 0 se 25 tak loop chala ke har character ki frequency analyze kar rahe hain.
+
+if (freq == 0) continue;
+→ Agar koi character string me nahi tha, usse skip kar do.
+
+if (freq % 2 == 0)
+→ Agar frequency even hai to...
+
+minEven = Math.min(minEven, freq);
+→ Sabse choti even frequency ko update karo.
+
+else maxOdd = Math.max(maxOdd, freq);
+→ Agar odd frequency hai, to sabse badi odd frequency update karo.
+
+return maxOdd - minEven;
+→ Final answer: Maximum Odd Frequency - Minimum Even Frequency
+
+📌 Example:
+Input: "aaaaabbc"
+
+Frequencies:
+
+a = 5 (odd)
+
+b = 2 (even)
+
+c = 1 (odd)
+
+maxOdd = 5 (a)
+
+minEven = 2 (b)
+
+✅ Output = 5 - 2 = 3
+
+⚠️ Edge Case:
+Agar sirf odd ya sirf even frequency wale characters hon, toh result incorrect ho sakta hai (e.g., minEven rahega s.length() hi).
+Iska handling bhi optionally add kiya ja sakta hai:
+
+if (maxOdd == 0 || minEven == s.length()) return -1;
+
+
+Feel free to reach out or connect for discussion or doubts:
+🔗 https://www.linkedin.com/in/saurabh884095/
+
+
+
+
+
+
+
+

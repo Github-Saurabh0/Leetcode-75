@@ -1,0 +1,87 @@
+✅ Leetcode 236: Lowest Common Ancestor of a Binary Tree – Java Solution (0ms, O(n) Time)
+
+class Solution {
+  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null || root == p || root == q)
+      return root;
+
+    TreeNode left = lowestCommonAncestor(root.left, p, q);
+    TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+    if (left != null && right != null)
+      return root;
+
+    return left != null ? left : right;
+  }
+}
+
+
+🧠 Explanation Line-by-Line:
+
+if (root == null || root == p || root == q)
+→ Base case: agar root null hai ya root hi p ya q hai
+→ Toh wahi node ko return kar do (kyunki mil gaya ya tree khatam ho gaya)
+
+return root;
+→ Agar base case true tha, toh root return kar diya (null, p ya q)
+
+
+TreeNode left = lowestCommonAncestor(root.left, p, q);
+→ Left subtree me LCA dhoond rahe hain
+→ Agar p ya q ya LCA left subtree me mila toh left me store hoga
+
+
+TreeNode right = lowestCommonAncestor(root.right, p, q);
+→ Right subtree me bhi same logic lagaya hai
+→ Agar p ya q ya LCA right subtree me mila toh right me store hoga
+
+
+if (left != null && right != null)
+→ Agar dono side se result mila, matlab ek node left me hai, doosra right me
+→ Toh current node hi Lowest Common Ancestor hoga
+
+
+return root;
+→ Dono branches me p aur q mile, toh root hi LCA return karo
+
+return left != null ? left : right;
+→ Agar dono branches me nahi mila, toh jo branch se mila wahi return karo
+→ Agar left non-null hai toh left return karo, warna right
+
+📌 Example:
+
+         3
+        / \
+       5   1
+      / \ / \
+     6  2 0  8
+       / \
+      7   4
+
+Input: root = 3, p = 5, q = 1
+→ 5 left me, 1 right me → LCA = 3
+
+Input: root = 3, p = 5, q = 4
+→ 5 me 4 child hai → LCA = 5
+
+
+⏱️ Time & Space Complexity:
+Time Complexity: O(n) → Har node ek baar visit hoti hai
+
+Space Complexity: O(h) → h = height of the tree (recursion stack)
+
+⚠️ Edge Case:
+Agar tree me koi ek node hi ho (p == q), tab bhi answer correctly wahi node return karega.
+
+Feel free to reach out or connect for discussion or doubts:
+🔗 https://www.linkedin.com/in/saurabh884095/
+
+
+
+
+
+
+
+
+
+

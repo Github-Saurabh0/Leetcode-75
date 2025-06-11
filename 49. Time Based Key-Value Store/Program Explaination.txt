@@ -1,0 +1,99 @@
+✅ Leetcode 981: Time Based Key-Value Store – Java Solution (97ms, O(log n) Get Time)
+
+class TimeMap {
+  private Map<String, List<Pair<Integer, String>>> map;
+
+  public TimeMap() {
+    map = new HashMap<>();
+  }
+
+  public void set(String key, String value, int timestamp) {
+    map.computeIfAbsent(key, k -> new ArrayList<>())
+       .add(new Pair<>(timestamp, value));
+  }
+
+  public String get(String key, int timestamp) {
+    if (!map.containsKey(key))
+      return "";
+
+    List<Pair<Integer, String>> list = map.get(key);
+    int l = 0, r = list.size() - 1;
+    String res = "";
+
+    while (l <= r) {
+      int m = l + (r - l) / 2;
+      if (list.get(m).getKey() <= timestamp) {
+        res = list.get(m).getValue();
+        l = m + 1;
+      } else {
+        r = m - 1;
+      }
+    }
+
+    return res;
+  }
+}
+
+🧠 Explanation Line-by-Line:
+private Map<String, List<Pair<Integer, String>>> map;
+→ Har key ke liye ek list banayenge jo (timestamp, value) pairs store karegi.
+
+map = new HashMap<>();
+→ Constructor me hashmap initialize kiya.
+
+public void set(String key, String value, int timestamp) {
+→ set() function me given key ke saath value aur timestamp store karte hain.
+
+map.computeIfAbsent(key, k -> new ArrayList<>()).add(new Pair<>(timestamp, value));
+→ Agar key pehle nahi hai to nayi list banao.
+→ Us list me (timestamp, value) pair add karo.
+
+public String get(String key, int timestamp) {
+→ get() function se hum wo value nikalna chahte hain jiska timestamp less than or equal to diya gaya timestamp ho.
+
+if (!map.containsKey(key)) return "";
+→ Agar key exist hi nahi karti, to blank string return karo.
+
+List<Pair<Integer, String>> list = map.get(key);
+→ Key ke corresponding list uthai jisme sare (timestamp, value) pairs hain (sorted order me).
+
+int l = 0, r = list.size() - 1; String res = "";
+→ Binary search ke liye left, right pointers aur result variable banaye.
+
+while (l <= r) { ... }
+→ Binary search laga rahe hain to find largest timestamp ≤ given timestamp.
+
+int m = l + (r - l) / 2;
+→ Mid index calculate kiya.
+
+if (list.get(m).getKey() <= timestamp) { res = list.get(m).getValue(); l = m + 1; }
+→ Agar mid timestamp chhota ya barabar hai to value store karo and search right side me aage badhao.
+
+else { r = m - 1; }
+→ Agar mid timestamp zyada hai to left side me search karo.
+
+return res;
+→ Final answer return karo (ya "" agar koi bhi timestamp match nahi hua).
+
+📌 Example:
+TimeMap obj = new TimeMap();
+obj.set("foo", "bar", 1);
+obj.get("foo", 1); // Output: "bar"
+obj.get("foo", 3); // Output: "bar"
+obj.set("foo", "bar2", 4);
+obj.get("foo", 4); // Output: "bar2"
+obj.get("foo", 5); // Output: "bar2"
+
+
+⏱️ Time & Space Complexity:
+set() → O(1) (adding at the end)
+
+get() → O(log n) (binary search over timestamps)
+
+Space → O(N) (N = total number of set() calls)
+
+
+Feel free to reach out or connect for discussion or doubts:
+🔗 https://www.linkedin.com/in/saurabh884095/
+
+

@@ -1,0 +1,144 @@
+✅ Leetcode 721: Accounts Merge – Java Solution (Faster Optimized Version)
+
+class Solution {
+  public List<List<String>> accountsMerge(List<List<String>> accounts) {
+    Map<String, String> parent = new HashMap<>();
+    Map<String, String> emailToName = new HashMap<>();
+
+    // Step 1: Initialize union-find
+    for (List<String> acc : accounts) {
+      String name = acc.get(0);
+      for (int i = 1; i < acc.size(); i++) {
+        String email = acc.get(i);
+        parent.putIfAbsent(email, email);
+        emailToName.put(email, name);
+        union(parent, email, acc.get(1));
+      }
+    }
+
+    // Step 2: Group by root parent
+    Map<String, List<String>> components = new HashMap<>();
+    for (String email : parent.keySet()) {
+      String root = find(parent, email);
+      components.computeIfAbsent(root, x -> new ArrayList<>()).add(email);
+    }
+
+    // Step 3: Prepare final result
+    List<List<String>> result = new ArrayList<>();
+    for (Map.Entry<String, List<String>> entry : components.entrySet()) {
+      List<String> group = entry.getValue();
+      Collections.sort(group);
+      group.add(0, emailToName.get(entry.getKey()));
+      result.add(group);
+    }
+
+    return result;
+  }
+
+  private String find(Map<String, String> parent, String s) {
+    if (!parent.get(s).equals(s))
+      parent.put(s, find(parent, parent.get(s)));
+    return parent.get(s);
+  }
+
+  private void union(Map<String, String> parent, String a, String b) {
+    String rootA = find(parent, a);
+    String rootB = find(parent, b);
+    if (!rootA.equals(rootB))
+      parent.put(rootA, rootB);
+  }
+}
+
+
+🧠 Explanation Line-by-Line
+Map<String, String> parent = new HashMap<>();
+→ Har email ka ek parent banate hain — Union-Find structure ke liye.
+
+Map<String, String> emailToName = new HashMap<>();
+→ Har email kis person se related hai, uska naam store karte hain.
+
+🧩 Step 1: Build Union-Find Relationships
+
+for (List<String> acc : accounts) {
+  String name = acc.get(0);
+→ Har account ke liye user ka naam le lo.
+
+  for (int i = 1; i < acc.size(); i++) {
+    String email = acc.get(i);
+    parent.putIfAbsent(email, email);
+    emailToName.put(email, name);
+    union(parent, email, acc.get(1));
+  }
+→ Har email ke liye:
+
+Apna parent khud set karo (agar nahi hai toh)
+
+Email ko us user ke naam se map karo
+
+Har email ko account ke first email ke saath merge (union) karo
+
+🧩 Step 2: Find Components (Group by Root Parent)
+
+Map<String, List<String>> components = new HashMap<>();
+→ Sabhi unique groups banayenge jinke common parent honge.
+
+for (String email : parent.keySet()) {
+  String root = find(parent, email);
+  components.computeIfAbsent(root, x -> new ArrayList<>()).add(email);
+}
+→ Har email ka root dhoondo, us root ke saare email ek hi group me daal do.
+
+🧩 Step 3: Prepare Final Result
+
+for (Map.Entry<String, List<String>> entry : components.entrySet()) {
+  List<String> group = entry.getValue();
+  Collections.sort(group);
+→ Har group ke emails ko sort karo (TreeSet se faster).
+
+  group.add(0, emailToName.get(entry.getKey()));
+  result.add(group);
+}
+→ Naam sabse pehle daalo group me, aur result me daal do.
+
+🔧 find() Function – Path Compression Ke Saath
+
+if (!parent.get(s).equals(s))
+  parent.put(s, find(parent, parent.get(s)));
+→ Agar email ka parent khud nahi hai, toh uska parent dhoond ke direct connect kar do (Path Compression – fast banata hai).
+
+🔧 union() Function – 2 Roots Ko Jodna
+
+if (!rootA.equals(rootB))
+  parent.put(rootA, rootB);
+→ Dono emails ke parent same nahi hain toh ek ko dusre ke parent se jod do.
+
+📌 Example:
+
+Input:
+[
+ ["John", "johnsmith@mail.com", "john_newyork@mail.com"],
+ ["John", "johnsmith@mail.com", "john00@mail.com"],
+ ["Mary", "mary@mail.com"],
+ ["John", "johnnybravo@mail.com"]
+]
+🧮 Output:
+
+[
+ ["John", "john00@mail.com", "john_newyork@mail.com", "johnsmith@mail.com"],
+ ["Mary", "mary@mail.com"],
+ ["John", "johnnybravo@mail.com"]
+]
+⚠️ Note:
+TreeSet ka use slow hota hai jab har insertion me sorting hoti hai
+
+List + sort() is faster in practice
+
+Path compression is critical, nahi toh runtime high chala jaata hai
+
+✅ Final Result:
+⏱ Faster Runtime (Avg 18ms–30ms)
+💡 Clean logic + Efficient memory + Fast sort
+
+
+Feel free to reach out or connect for discussion or doubts:
+🔗 https://www.linkedin.com/in/saurabh884095/

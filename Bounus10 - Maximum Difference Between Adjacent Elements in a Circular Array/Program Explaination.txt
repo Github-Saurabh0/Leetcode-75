@@ -1,0 +1,59 @@
+✅ Java Code (Optimized Linear Solution)
+
+class Solution {
+    public int maxAdjacentDistance(int[] nums) {
+        int n = nums.length;
+        int maxDiff = 0;
+
+        for (int i = 0; i < n; i++) {
+            int diff = Math.abs(nums[i] - nums[(i + 1) % n]); // circular diff
+            maxDiff = Math.max(maxDiff, diff);
+        }
+
+        return maxDiff;
+    }
+}
+
+
+
+📘 Explanation (Line-by-Line)
+int n = nums.length;
+🔹 Array ka size store kiya n me.
+
+int maxDiff = 0;
+🔹 Maximum difference ko track karne ke liye variable.
+
+for (int i = 0; i < n; i++) {
+🔹 Har index i par loop chalayenge.
+
+int diff = Math.abs(nums[i] - nums[(i + 1) % n]);
+🔹 Adjacent elements ka absolute difference nikaal rahe hain.
+🔹 (i + 1) % n se circular behavior handle ho gaya — last and first bhi check ho jaate hain.
+
+maxDiff = Math.max(maxDiff, diff);
+🔹 Har difference ke baad max value update karte jaa rahe hain.
+
+return maxDiff;
+🔹 Sabse bada adjacent circular difference return karo.
+
+🚀 Time and Space Complexity
+Time: O(n) → Single pass through the array
+
+Space: O(1) → No extra space used
+
+🧠 Example
+Input: [10, 20, 5, 8]
+Adjacent diffs:
+
+|10 - 20| = 10
+
+|20 - 5| = 15
+
+|5 - 8| = 3
+
+|8 - 10| = 2 (circular)
+
+✅ Maximum = 15
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

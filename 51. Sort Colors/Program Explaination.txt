@@ -1,0 +1,73 @@
+✅ Java Code (Best Optimized Approach - One Pass, Constant Space)
+
+class Solution {
+    public void sortColors(int[] nums) {
+        int low = 0;             // 0 ke liye pointer
+        int mid = 0;             // current index jise traverse krna hai
+        int high = nums.length - 1; // 2 ke liye pointer
+
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                // agar current element 0 hai, toh usse low index ke saath swap karo
+                int temp = nums[low];
+                nums[low] = nums[mid];
+                nums[mid] = temp;
+                low++;    // 0 area badhao
+                mid++;    // next element par jao
+            } else if (nums[mid] == 1) {
+                // agar 1 hai toh usse wahi chhodo aur next par jao
+                mid++;
+            } else {
+                // agar 2 hai toh usse high index ke saath swap karo
+                int temp = nums[mid];
+                nums[mid] = nums[high];
+                nums[high] = temp;
+                high--;   // 2 area peeche le jao
+                // mid ko badhao nahi, kyuki swap k baad aaya element check karna padega
+            }
+        }
+    }
+}
+
+
+📘 Explanation (Line by Line)
+
+int low = 0;
+🔹 low pointer 0s ko track karega, starting me 0th index par hai.
+
+int mid = 0;
+🔹 mid se hum array ko traverse karenge.
+
+int high = nums.length - 1;
+🔹 high pointer last index se shuru karega aur 2s ke liye use hoga.
+
+💡 Loop Logic: while (mid <= high)
+Agar nums[mid] == 0:
+
+0 mila toh usse low ke index par le jao (swap karo).
+
+Fir low++ aur mid++ dono badha do.
+
+✅ Because 0s ka area increase ho gaya.
+
+Agar nums[mid] == 1:
+
+1 mila toh kuch nahi karna.
+
+Bas mid++ badha do, kyuki 1 already sahi position pe hai.
+
+Agar nums[mid] == 2:
+
+2 mila toh usse high ke index par le jao (swap karo).
+
+Fir high-- karo.
+
+But mid nahi badhaya, kyuki swap karke jo aaya hai usse check karna hoga.
+
+🚀 Time and Space Complexity
+Time: O(n) → Only one pass through the array
+
+Space: O(1) → In-place sorting, no extra memory
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

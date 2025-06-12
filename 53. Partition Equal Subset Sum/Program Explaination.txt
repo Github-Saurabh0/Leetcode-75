@@ -1,0 +1,71 @@
+✅ Java Code (DP - 0/1 Knapsack)
+
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int total = 0;
+        for (int num : nums) {
+            total += num;  // sab numbers ka sum nikalo
+        }
+
+        if (total % 2 != 0) {
+            return false;  // agar total odd hai toh equal 2 parts possible nahi
+        }
+
+        int target = total / 2;  // hume sum = total/2 ka subset chahiye
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;  // 0 sum toh empty subset se ho hi sakta hai
+
+        for (int num : nums) {
+            for (int i = target; i >= num; i--) {
+                // is sum i tak pahuchne ka ek tareeka hai ki i - num pe already true ho
+                dp[i] = dp[i] || dp[i - num];
+            }
+        }
+
+        return dp[target];  // kya target sum possible hai?
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+int total = 0;
+🔹 sab elements ka total nikala.
+
+if (total % 2 != 0)
+🔹 agar total odd hai, toh 2 equal parts me baantna impossible.
+
+int target = total / 2;
+🔹 hume check karna hai koi subset hai jiska sum = target.
+
+boolean[] dp = new boolean[target + 1];
+🔹 dp[i] = kya i sum possible hai kisi subset se?
+
+dp[0] = true;
+🔹 0 sum hamesha possible hota hai (kisi bhi element ke bina).
+
+Outer loop: for (int num : nums)
+🔹 har number ke liye check karo ki uske use se kya naya sum ban sakta hai.
+
+Inner loop: for (int i = target; i >= num; i--)
+🔹 reverse me loop chala rahe hain taaki dp[i - num] purani value ho (not overwritten).
+
+dp[i] = dp[i] || dp[i - num];
+🔹 agar i - num pe true hai, toh i bhi true ban jaayega.
+
+🧠 Example
+Input: nums = [1, 5, 11, 5]
+
+Total = 22, Target = 11
+
+dp[11] tak pahuchna hai
+
+✅ Subset [11] ya [5, 5, 1] se ho jaata hai → return true.
+
+🚀 Time and Space Complexity
+Time: O(n × sum/2)
+
+Space: O(sum/2) → 1D DP optimized
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

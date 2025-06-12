@@ -1,0 +1,81 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+    public int myAtoi(String s) {
+        int i = 0, n = s.length();
+        int sign = 1;
+        long result = 0;
+
+        // Step 1: Skip leading whitespaces
+        while (i < n && s.charAt(i) == ' ') {
+            i++;
+        }
+
+        // Step 2: Check for optional sign
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            sign = (s.charAt(i) == '-') ? -1 : 1;
+            i++;
+        }
+
+        // Step 3: Convert digits to number
+        while (i < n && Character.isDigit(s.charAt(i))) {
+            int digit = s.charAt(i) - '0';
+            result = result * 10 + digit;
+
+            // Step 4: Check for overflow
+            if (sign * result > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            if (sign * result < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+
+            i++;
+        }
+
+        return (int)(sign * result);
+    }
+}
+
+📘 Explanation (Line-by-Line)
+int i = 0, n = s.length();
+🔹 Pointer i se string scan karenge, n length store kar liya.
+
+while (i < n && s.charAt(i) == ' ')
+🔹 Leading whitespaces ko skip kar rahe hain.
+
+if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-'))
+🔹 Agar + ya - mile toh sign set karo aur i++.
+
+while (i < n && Character.isDigit(s.charAt(i)))
+🔹 Jab tak digit milte rahein, unka number banao.
+
+result = result * 10 + digit;
+🔹 Har digit add karke number banate jaa rahe hain (left shift).
+
+if (sign * result > Integer.MAX_VALUE)
+🔹 Overflow check → return 2147483647
+
+if (sign * result < Integer.MIN_VALUE)
+🔹 Underflow check → return -2147483648
+
+return (int)(sign * result);
+🔹 Final result return karo with proper sign.
+
+🧠 Example
+Input: " -42"
+Steps:
+
+Skip spaces → -42
+
+Sign → -1
+
+Number → 42
+
+Result → -42
+
+✅ Output: -42
+
+🚀 Time and Space Complexity
+Time: O(n) → Traverse input string once
+
+Space: O(1) → No extra space
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

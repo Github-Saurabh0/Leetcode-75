@@ -1,0 +1,55 @@
+✅ Java Code (Best Optimized DP Approach)
+
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordSet = new HashSet<>(wordDict);  // Fast lookup ke liye set banaya
+        boolean[] dp = new boolean[s.length() + 1];     // dp[i] = s.substring(0, i) tak break ho sakta hai ya nahi
+        dp[0] = true;                                   // Empty string always break ho sakti hai
+
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                // Agar s[0...j] tak break ho sakta hai aur s[j...i] wordSet me hai
+                if (dp[j] && wordSet.contains(s.substring(j, i))) {
+                    dp[i] = true;   // s[0...i] tak break ho sakta hai
+                    break;          // Ek valid break mil gaya, ab next i par jao
+                }
+            }
+        }
+
+        return dp[s.length()];  // pura string break ho paya ya nahi
+    }
+}
+
+
+📘 Explanation (Line by Line)
+Set<String> wordSet = new HashSet<>(wordDict);
+🔹 Word list ko fast lookup ke liye HashSet me convert kiya.
+
+boolean[] dp = new boolean[s.length() + 1];
+🔹 dp[i] batata hai ki s[0...i) tak ka string valid hai ya nahi.
+
+dp[0] = true;
+🔹 Empty string always valid hoti hai (base case).
+
+💡 Loop Explanation:
+for (int i = 1; i <= s.length(); i++):
+🔹 i tak ka substring check kar rahe hain.
+
+for (int j = 0; j < i; j++):
+🔹 har point par string ko 2 parts me tod rahe hain: s[0...j] and s[j...i]
+
+if (dp[j] && wordSet.contains(s.substring(j, i))):
+🔹 Agar pehla part already break ho gaya (dp[j] == true)
+🔹 aur second part wordDict me present hai
+🔹 toh dp[i] = true kar do
+
+break;
+🔹 Jaisi hi ek valid break milti hai, loop chhod do (optimization)
+
+🚀 Time and Space Complexity
+Time: O(n²) → nested loop for all substrings
+
+Space: O(n + m) → n = length of string, m = total length of dictionary
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

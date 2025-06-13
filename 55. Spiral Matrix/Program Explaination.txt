@@ -1,0 +1,108 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+
+        while (top <= bottom && left <= right) {
+            // Left → Right
+            for (int i = left; i <= right; i++)
+                result.add(matrix[top][i]);
+            top++;
+
+            // Top → Bottom
+            for (int i = top; i <= bottom; i++)
+                result.add(matrix[i][right]);
+            right--;
+
+            // Right → Left
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--)
+                    result.add(matrix[bottom][i]);
+                bottom--;
+            }
+
+            // Bottom → Top
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--)
+                    result.add(matrix[i][left]);
+                left++;
+            }
+        }
+
+        return result;
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+List<Integer> result = new ArrayList<>();
+🔹 Output list banayi jisme result store hoga.
+
+int top = 0, bottom = matrix.length - 1;
+int left = 0, right = matrix[0].length - 1;
+🔹 Matrix ki boundaries define ki - top, bottom, left, right.
+
+while (top <= bottom && left <= right)
+🔹 Jab tak 4 boundaries valid hai, tab tak loop chalega.
+
+for (int i = left; i <= right; i++) result.add(matrix[top][i]);
+🔹 Left to Right traverse top row mein.
+
+top++;
+🔹 Top boundary niche le aaye.
+
+for (int i = top; i <= bottom; i++) result.add(matrix[i][right]);
+🔹 Top to Bottom traverse right column mein.
+
+right--;
+🔹 Right boundary left le aaye.
+
+if (top <= bottom)
+🔹 Check kiya bottom row valid hai ya nahi.
+
+for (int i = right; i >= left; i--) result.add(matrix[bottom][i]);
+🔹 Right to Left traverse bottom row mein.
+
+bottom--;
+🔹 Bottom boundary upar le aaye.
+
+if (left <= right)
+🔹 Check kiya left column valid hai ya nahi.
+
+for (int i = bottom; i >= top; i--) result.add(matrix[i][left]);
+🔹 Bottom to Top traverse left column mein.
+
+left++;
+🔹 Left boundary right le aaye.
+
+return result;
+🔹 Final spiral list return ki.
+
+🧠 Example
+Input:
+[[1,2,3],
+[4,5,6],
+[7,8,9]]
+
+Steps:
+→ Top row: 1 2 3
+→ Right col: 6 9
+→ Bottom row: 8 7
+→ Left col: 4
+→ Center: 5
+
+✅ Output: [1,2,3,6,9,8,7,4,5]
+
+🚀 Time and Space Complexity
+Time: O(m * n) → Har element ek baar visit hota hai
+Space: O(1) → Extra space nahi liya (excluding output list)
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

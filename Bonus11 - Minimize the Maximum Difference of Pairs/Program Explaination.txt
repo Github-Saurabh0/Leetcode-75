@@ -1,0 +1,91 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+import java.util.Arrays;
+
+class Solution {
+    public int minimizeMax(int[] nums, int p) {
+        Arrays.sort(nums);
+        int low = 0;
+        int high = nums[nums.length - 1] - nums[0];
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (canFormPairs(nums, p, mid)) {
+                high = mid;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return low;
+    }
+
+    private boolean canFormPairs(int[] nums, int p, int maxDiff) {
+        int count = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] - nums[i - 1] <= maxDiff) {
+                count++;
+                i++; // skip next element, this and previous are paired
+            }
+        }
+        return count >= p;
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+Arrays.sort(nums);
+🔹 Array ko sort kiya taaki adjacent elements ka diff minimal ho.
+
+int low = 0;
+int high = nums[nums.length - 1] - nums[0];
+🔹 Search space banaya: min diff 0, max diff = max - min.
+
+while (low < high)
+🔹 Binary search lagaya to find minimum possible max difference.
+
+int mid = low + (high - low) / 2;
+🔹 Mid difference calculate kiya.
+
+if (canFormPairs(nums, p, mid)) high = mid;
+else low = mid + 1;
+🔹 Agar mid diff se p valid pairs ban gaye, toh high ko kam karo.
+🔹 Agar nahi ban gaye, toh low ko badhao.
+
+return low;
+🔹 Jab low == high hoga, wahi minimum max diff hoga.
+
+Function: canFormPairs
+
+int count = 0;
+for (int i = 1; i < nums.length; i++)
+🔹 Array traverse kar rahe hain to count how many pairs possible.
+
+if (nums[i] - nums[i - 1] <= maxDiff)
+🔹 Agar dono elements ka diff maxDiff se kam ya barabar hai → valid pair.
+
+count++;
+i++;
+🔹 Ek pair bana, dono elements use ho gaye, isliye i++ skip kiya.
+
+return count >= p;
+🔹 Agar required number of pairs ban gaye toh true return karo.
+
+🧠 Example
+
+Input: nums = [10,1,2,7,1,3], p = 2
+Sorted: [1,1,2,3,7,10]
+Try max diff = 0 → only one pair: (1,1)
+Try max diff = 1 → pairs: (1,1), (2,3) → valid
+✅ Output: 1
+
+🚀 Time and Space Complexity
+
+Time: O(n log n) for sorting + O(n log D) for binary search
+(D = max difference in array)
+
+Space: O(1) extra space
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,86 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+import java.util.*;
+
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            Integer lastNodeVal = null;
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode curr = queue.poll();
+                lastNodeVal = curr.val;
+
+                if (curr.left != null) queue.offer(curr.left);
+                if (curr.right != null) queue.offer(curr.right);
+            }
+
+            result.add(lastNodeVal);
+        }
+
+        return result;
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+List<Integer> result = new ArrayList<>();
+🔹 Final answer store karne ke liye list banayi.
+
+if (root == null) return result;
+🔹 Agar root hi null hai, toh empty list return kar do.
+
+Queue<TreeNode> queue = new LinkedList<>();
+queue.offer(root);
+🔹 BFS ke liye queue banayi aur root ko queue mein daala.
+
+while (!queue.isEmpty())
+🔹 Level order traversal tab tak chalega jab tak queue empty nahi ho jati.
+
+int levelSize = queue.size();
+🔹 Current level mein kitne nodes hain uska size liya.
+
+for (int i = 0; i < levelSize; i++)
+🔹 Poore current level ke nodes ko process karenge.
+
+TreeNode curr = queue.poll();
+🔹 Queue se ek node nikala.
+
+lastNodeVal = curr.val;
+🔹 Last node of this level ka value store kiya (rightmost node).
+
+if (curr.left != null) queue.offer(curr.left);
+if (curr.right != null) queue.offer(curr.right);
+🔹 Left aur right child queue mein daale.
+
+result.add(lastNodeVal);
+🔹 Har level ke last node ko result list mein daal diya.
+
+🧠 Example
+
+Input:
+
+      1
+     / \
+    2   3
+     \   \
+      5   4
+Right side view = [1, 3, 4]
+
+✅ Output: [1, 3, 4]
+
+🚀 Time and Space Complexity
+
+Time: O(n) → Traverse each node once
+Space: O(n) → Queue + result list
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

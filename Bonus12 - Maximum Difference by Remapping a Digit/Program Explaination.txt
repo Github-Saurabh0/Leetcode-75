@@ -1,0 +1,74 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+    public int minMaxDifference(int num) {
+        String s = String.valueOf(num);
+
+        // Maximize the number
+        char targetMax = ' ';
+        for (char c : s.toCharArray()) {
+            if (c != '9') {
+                targetMax = c;
+                break;
+            }
+        }
+
+        String maxNum = s;
+        if (targetMax != ' ') {
+            maxNum = s.replace(targetMax, '9');
+        }
+
+        // Minimize the number
+        char targetMin = s.charAt(0);
+        String minNum = s.replace(targetMin, '0');
+
+        return Integer.parseInt(maxNum) - Integer.parseInt(minNum);
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+String s = String.valueOf(num);
+🔹 Input number ko string mein convert kiya for easy digit replacement.
+
+Maximizing Step:
+
+char targetMax = ' ';
+🔹 Pehla digit dhoondh rahe hain jo '9' nahi hai.
+
+for (char c : s.toCharArray())
+🔹 Loop karke pehla non-9 digit dhoondha.
+
+if (c != '9') → targetMax = c;
+🔹 Is digit ko 9 se replace karenge to maximize number.
+
+maxNum = s.replace(targetMax, '9');
+🔹 Sab targetMax digits ko '9' se replace kar diya.
+
+Minimizing Step:
+
+char targetMin = s.charAt(0);
+🔹 Minimize karne ke liye sabse pehla digit ko ‘0’ se replace karenge.
+
+minNum = s.replace(targetMin, '0');
+🔹 Sab us digit ko 0 se replace kar diya.
+
+return Integer.parseInt(maxNum) - Integer.parseInt(minNum);
+🔹 Max - Min ka difference return kiya.
+
+🧠 Example
+
+Input: num = 11891
+Maximize → Replace '1' with '9' → 99899
+Minimize → Replace first '1' with '0' → 00890 → interpreted as 890
+
+✅ Output: 99899 - 890 = 99009
+
+🚀 Time and Space Complexity
+
+Time: O(n) → n = number of digits
+Space: O(n) → String operations
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

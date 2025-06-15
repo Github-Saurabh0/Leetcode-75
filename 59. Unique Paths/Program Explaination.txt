@@ -1,0 +1,63 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+
+        // Fill first row and first column with 1 (only one way to reach them)
+        for (int i = 0; i < m; i++) dp[i][0] = 1;
+        for (int j = 0; j < n; j++) dp[0][j] = 1;
+
+        // Fill rest of the grid
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+
+        return dp[m - 1][n - 1];
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+int[][] dp = new int[m][n];
+🔹 DP table where dp[i][j] means number of unique paths to cell (i,j).
+
+for (int i = 0; i < m; i++) dp[i][0] = 1;
+🔹 First column → Only 1 way: move down.
+
+for (int j = 0; j < n; j++) dp[0][j] = 1;
+🔹 First row → Only 1 way: move right.
+
+for (int i = 1; i < m; i++)
+for (int j = 1; j < n; j++)
+🔹 Traverse grid starting from (1,1)
+
+dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+🔹 Ways to reach current cell = top + left
+
+return dp[m - 1][n - 1];
+🔹 Return number of ways to reach bottom-right
+
+🧠 Example
+
+Input: m = 3, n = 7
+Grid:
+
+Copy
+Edit
+→ → → → → → ↓  
+↓  
+↓
+Paths = 28
+✅ Output: 28
+
+🚀 Time and Space Complexity
+
+Time: O(m × n)
+Space: O(m × n)
+
+🔗 If any need please ask me:
+https://www.linkedin.com/in/saurabh884095/

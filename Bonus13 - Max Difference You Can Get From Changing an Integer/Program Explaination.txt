@@ -1,0 +1,58 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+  public int maxDiff(int num) {
+    final String s = String.valueOf(num);
+    final int firstNot9 = firstNot(s, '9', '9');
+    final int firstNot01 = firstNot(s, '0', '1');
+    final String a = s.replace(s.charAt(firstNot9), '9');
+    final String b = s.replace(s.charAt(firstNot01), firstNot01 == 0 ? '1' : '0');
+    return Integer.parseInt(a) - Integer.parseInt(b);
+  }
+
+  private int firstNot(final String s, char a, char b) {
+    for (int i = 0; i < s.length(); ++i)
+      if (s.charAt(i) != a && s.charAt(i) != b)
+        return i;
+    return 0;
+  }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+final String s = String.valueOf(num);
+🔹 Input number ko string mein convert kiya for manipulation.
+
+firstNot(s, '9', '9');
+🔹 Find the first digit which is not '9' → use for max value.
+
+firstNot(s, '0', '1');
+🔹 Find the first digit which is not '0' or '1' → use for min value.
+
+final String a = s.replace(s.charAt(firstNot9), '9');
+🔹 Sab firstNot9 character ko '9' se replace kiya → gives maximum.
+
+final String b = s.replace(s.charAt(firstNot01), firstNot01 == 0 ? '1' : '0');
+🔹 If it's first digit, replace with '1', else with '0' → gives minimum.
+
+return Integer.parseInt(a) - Integer.parseInt(b);
+🔹 Max - Min difference return kiya.
+
+🧠 Example
+
+Input: 9288
+
+First not '9' → '2' → max = 9988
+
+First not '0' or '1' → '9' → min = 0288
+✅ Output: 9988 - 288 = 9700
+
+🚀 Time and Space Complexity
+
+Time: O(n) → 1-pass scan + string replace
+Space: O(n) → For string copies
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/
+

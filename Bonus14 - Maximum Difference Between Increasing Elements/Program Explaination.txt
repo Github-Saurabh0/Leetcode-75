@@ -1,0 +1,56 @@
+✅ Java Code (Clean & Easy to Understand)
+
+class Solution {
+    public int maximumDifference(int[] nums) {
+        int min = nums[0];
+        int maxDiff = -1;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] > min) {
+                maxDiff = Math.max(maxDiff, nums[i] - min);
+            } else {
+                min = nums[i]; // Update min if current is smaller
+            }
+        }
+
+        return maxDiff;
+    }
+}
+
+
+📘  Explanation (Line-by-Line)
+
+int min = nums[0];
+🔹 Pehle element ko minimum assume kar rahe hain (ab tak ka sabse chhota).
+
+int maxDiff = -1;
+🔹 Default -1 return karenge agar increasing pair na mila.
+
+for (int i = 1; i < nums.length; i++) {
+🔹 Loop start karte hain second element se.
+
+  if (nums[i] > min) {
+    maxDiff = Math.max(maxDiff, nums[i] - min);
+    🔹 Jab current number, ab tak ke min se bada ho → diff nikalo.
+  } else {
+    min = nums[i];
+    🔹 Agar chhota number milta hai, toh min ko update kar do.
+  }
+}
+
+return maxDiff;
+🔹 Final answer return karo.
+
+🧠 Example Input:
+
+Input: nums = [7,1,5,4]
+Output: 4
+Explanation: 5 - 1 = 4 is the maximum difference where 5 comes after 1.
+🚀 Time & Space Complexity:
+
+Time: O(n) → Single pass
+
+Space: O(1) → No extra space
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

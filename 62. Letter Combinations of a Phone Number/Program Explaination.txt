@@ -1,0 +1,81 @@
+✅ Java Code (Backtracking Approach)
+
+class Solution {
+    private static final String[] KEYPAD = {
+        "",     "",     "abc",  "def", "ghi",
+        "jkl",  "mno",  "pqrs", "tuv", "wxyz"
+    };
+
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<>();
+        if (digits.isEmpty()) return result;
+        backtrack(digits, 0, new StringBuilder(), result);
+        return result;
+    }
+
+    private void backtrack(String digits, int index, StringBuilder current, List<String> result) {
+        if (index == digits.length()) {
+            result.add(current.toString());
+            return;
+        }
+
+        String letters = KEYPAD[digits.charAt(index) - '0'];
+        for (char c : letters.toCharArray()) {
+            current.append(c);
+            backtrack(digits, index + 1, current, result);
+            current.deleteCharAt(current.length() - 1); // Backtrack step
+        }
+    }
+}
+
+📘 Hinglish Explanation (Line-by-Line)
+
+private static final String[] KEYPAD = {...};
+🔹 Mobile keypad ke letters ko array me store kiya (2 = abc, 3 = def ...).
+
+public List<String> letterCombinations(String digits) {
+  List<String> result = new ArrayList<>();
+  🔹 Final result store karne ke liye list banayi.
+
+  if (digits.isEmpty()) return result;
+  🔹 Agar input empty ho toh khali list return kar do.
+
+  backtrack(digits, 0, new StringBuilder(), result);
+  🔹 Backtracking start kiya from index 0.
+}
+
+private void backtrack(String digits, int index, StringBuilder current, List<String> result) {
+  if (index == digits.length()) {
+    result.add(current.toString());
+    return;
+    🔹 Base case: agar sab digits cover ho gaye, toh combination result me daal do.
+  }
+
+  String letters = KEYPAD[digits.charAt(index) - '0'];
+  🔹 Current digit ke corresponding letters uthaye (eg. '2' = "abc").
+
+  for (char c : letters.toCharArray()) {
+    current.append(c);
+    🔹 Letter ko current combination me add kiya.
+
+    backtrack(digits, index + 1, current, result);
+    🔹 Next digit ke liye recursive call.
+
+    current.deleteCharAt(current.length() - 1);
+    🔹 Backtrack → last added letter ko hata diya.
+  }
+}
+
+
+🧠 Example Input:
+
+Input: digits = "23"
+Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+🚀 Time & Space Complexity:
+
+Time: O(3ⁿ × 4ᵐ), where n = number of digits like 2-6-8 (3 letters), m = number of digits like 7 or 9 (4 letters)
+
+Space: O(n) → recursive call stack
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

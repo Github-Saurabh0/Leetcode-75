@@ -1,0 +1,69 @@
+✅ Java Code (Optimal Two-Pointer Approach)
+
+class Solution {
+    public int maxArea(int[] height) {
+        int max = 0;
+        int left = 0, right = height.length - 1;
+
+        while (left < right) {
+            int h = Math.min(height[left], height[right]);
+            int w = right - left;
+            max = Math.max(max, h * w);
+
+            // Move pointer which has smaller height
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return max;
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+int max = 0;
+🔹 Ab tak ka maximum area store karne ke liye variable.
+
+int left = 0, right = height.length - 1;
+🔹 2 pointer technique: Ek array ke start par (left) aur ek end par (right).
+
+while (left < right) {
+🔹 Jab tak left aur right pointers ek dusre ko cross nahi karte.
+
+  int h = Math.min(height[left], height[right]);
+  🔹 Dono boundaries me se chhoti height lete hain (kyunki water wahin tak bharega).
+
+  int w = right - left;
+  🔹 Width nikaali → right aur left ke beech ka distance.
+
+  max = Math.max(max, h * w);
+  🔹 Max area update kiya (height × width).
+
+  if (height[left] < height[right]) {
+    left++;
+    🔹 Chhoti boundary ko move karo (chance zyada area ka badhne ka hai).
+  } else {
+    right--;
+    🔹 Right side chhoti hai toh usse move karo.
+  }
+}
+
+return max;
+🔹 Sabse bada area return kar do.
+
+🧠 Example Input:
+Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: Water is stored between index 1 and 8 → min(8, 7) × (8 - 1) = 49
+🚀 Time & Space Complexity:
+
+Time: O(n)
+
+Space: O(1)
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

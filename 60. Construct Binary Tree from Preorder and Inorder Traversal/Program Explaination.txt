@@ -1,0 +1,84 @@
+✅ Java Code (Clean & Fast)
+
+class Solution {
+    private int preorderIndex = 0;
+    private Map<Integer, Integer> inorderMap = new HashMap<>();
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        // Inorder array ke har element ka index store kar rahe hain fast access ke liye
+        for (int i = 0; i < inorder.length; i++) {
+            inorderMap.put(inorder[i], i);
+        }
+
+        // Helper function se tree banana start kar rahe hain
+        return helper(preorder, 0, inorder.length - 1);
+    }
+
+    private TreeNode helper(int[] preorder, int inStart, int inEnd) {
+        // Agar left > right ho gaya toh null return karo (koi node nahi bachi)
+        if (inStart > inEnd) return null;
+
+        // Preorder se current root value lo
+        int rootVal = preorder[preorderIndex++];
+        TreeNode root = new TreeNode(rootVal);
+
+        // Inorder array me us root ka index find karo
+        int index = inorderMap.get(rootVal);
+
+        // Left subtree banao (inStart se index - 1 tak)
+        root.left = helper(preorder, inStart, index - 1);
+
+        // Right subtree banao (index + 1 se inEnd tak)
+        root.right = helper(preorder, index + 1, inEnd);
+
+        return root;
+    }
+}
+
+
+📘 Explanation (Line-by-Line)
+
+preorderIndex = 0
+🔹 Preorder traversal ka pointer, har baar root uthayega.
+
+inorderMap
+🔹 Inorder array ke har value ka index store, fast lookup ke liye.
+
+buildTree()
+🔹 Inorder map banaya aur recursive tree build start kiya.
+
+helper()
+🔹 InStart → InEnd ke range me root banake, left & right subtree create karte hain.
+
+preorder[preorderIndex++]
+🔹 Root uthaya preorder se, aur index aage badhaya.
+
+inorderMap.get(rootVal)
+🔹 Root ka position dhoonda inorder me.
+
+helper(..., inStart, index - 1)
+🔹 Left subtree create kiya.
+
+helper(..., index + 1, inEnd)
+🔹 Right subtree create kiya.
+
+🧠 Example Input:
+
+Preorder = [3,9,20,15,7]
+Inorder  = [9,3,15,20,7]
+
+Constructed Tree:
+
+    3
+   / \
+  9  20
+     / \
+    15  7
+🚀 Time & Space Complexity:
+
+Time: O(n)
+
+Space: O(n)
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

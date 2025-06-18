@@ -1,0 +1,81 @@
+✅ Java Code (Clean, Fast, Sliding Window)
+
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+        if (s.length() < p.length()) return result;
+
+        int[] count = new int[26];
+
+        for (char c : p.toCharArray())
+            count[c - 'a']++;
+
+        int left = 0, right = 0, toMatch = p.length();
+
+        while (right < s.length()) {
+            if (count[s.charAt(right++) - 'a']-- > 0)
+                toMatch--;
+
+            if (toMatch == 0)
+                result.add(left);
+
+            if (right - left == p.length() && count[s.charAt(left++) - 'a']++ >= 0)
+                toMatch++;
+        }
+
+        return result;
+    }
+}
+
+📘 Explanation
+
+List<Integer> result = new ArrayList<>();
+➡️ Output list banayi jisme anagram ke starting indexes store karenge.
+
+if (s.length() < p.length()) return result;
+➡️ Agar string s ki length, p se choti hai, toh koi anagram ban hi nahi sakta.
+
+int[] count = new int[26];
+➡️ Ek 26 size ka array banaya har alphabet ke frequency ko track karne ke liye.
+
+for (char c : p.toCharArray()) count[c - 'a']++;
+➡️ Pattern p ke characters ka count increment kiya.
+
+int left = 0, right = 0, toMatch = p.length();
+➡️ Sliding window ke liye left aur right pointers aur toMatch banaya, jisme p.length() characters match hone chahiye.
+
+Main Loop:
+
+while (right < s.length()) {
+➡️ Jab tak right pointer s ke end tak nahi pahuchta, loop chalayenge.
+
+if (count[s.charAt(right++) - 'a']-- > 0) toMatch--;
+➡️ Window ke andar ek character aaya:
+Agar wo needed tha (count > 0), toh toMatch kam kar do.
+
+if (toMatch == 0) result.add(left);
+➡️ Agar sab characters match ho gaye (toMatch == 0), toh anagram mil gaya → left index add karo.
+
+if (right - left == p.length() && count[s.charAt(left++) - 'a']++ >= 0) toMatch++;
+➡️ Window ka size p.length() ke barabar ho gaya:
+
+Old character window se hatao (left++)
+
+Agar wo needed character tha, toh toMatch badha do.
+
+Loop continue hota hai jab tak pura string traverse nahi ho jaata.
+
+Example:
+
+Input: s = "cbaebabacd", p = "abc"
+Output: [0, 6]
+"cba" and "bac" dono hi abc ke anagrams hain.
+
+Time and Space Complexity
+
+Time: O(n)
+Space: O(1) → 26 letters ka fixed array
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

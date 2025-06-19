@@ -1,0 +1,58 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+    public int partitionArray(int[] nums, int k) {
+        Arrays.sort(nums);
+        int count = 1;
+        int min = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] - min > k) {
+                count++;
+                min = nums[i];
+            }
+        }
+
+        return count;
+    }
+}
+
+
+📘 Explanation
+
+Arrays.sort(nums);
+🔹 Sabse pehle array ko sort kar diya — taaki hum increasing order mein process kar sakein.
+
+int count = 1;
+🔹 Kam se kam ek group toh hoga hi — isliye count = 1 se start kiya.
+
+int min = nums[0];
+🔹 Pehle group ka starting point ya minimum value nums[0] set kiya.
+
+for (int i = 1; i < nums.length; i++) {
+🔹 Index 1 se lekar end tak array ko traverse kiya.
+
+if (nums[i] - min > k) {
+🔹 Agar current element aur group ka minimum ka difference k se zyada ho gaya...
+
+count++;
+🔹 ...toh naya group banayenge → isliye count ko badha diya.
+
+min = nums[i];
+🔹 Naye group ka starting point ab current number ban gaya.
+
+return count;
+🔹 Total number of groups return kar diya.
+
+🧠 Example
+Input: nums = [3,6,1,2,5], k = 2
+Sorted: [1,2,3,5,6]
+Output: 2
+Groups: [1,2,3], [5,6] — because in each group, max - min ≤ 2.
+
+🚀 Time and Space Complexity
+Time: O(n log n) → for sorting
+Space: O(1) → no extra space
+
+🔗 Facing any issue or want more Java tricks?
+Connect here: https://www.linkedin.com/in/saurabh884095/

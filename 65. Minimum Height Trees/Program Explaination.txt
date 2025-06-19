@@ -1,0 +1,89 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1) return Collections.singletonList(0);
+
+        List<Set<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) graph.add(new HashSet<>());
+
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+
+        List<Integer> leaves = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (graph.get(i).size() == 1) leaves.add(i);
+        }
+
+        while (n > 2) {
+            n -= leaves.size();
+            List<Integer> newLeaves = new ArrayList<>();
+
+            for (int leaf : leaves) {
+                int neighbor = graph.get(leaf).iterator().next();
+                graph.get(neighbor).remove(leaf);
+                if (graph.get(neighbor).size() == 1) newLeaves.add(neighbor);
+            }
+
+            leaves = newLeaves;
+        }
+
+        return leaves;
+    }
+}
+
+
+📘 Explanation
+
+if (n == 1) return Collections.singletonList(0);
+🔹 Agar graph mein sirf 1 node hai, toh wahi root hoga — seedha return kar diya.
+
+List<Set<Integer>> graph = new ArrayList<>();
+🔹 Graph ko adjacency list ke form mein represent kar rahe hain using Set (to handle bidirectional edges).
+
+for (int i = 0; i < n; i++) graph.add(new HashSet<>());
+🔹 Har node ke liye ek empty set banaya (jisme neighbors store honge).
+
+for (int[] edge : edges)
+🔹 Sab edges ko process karke graph build kiya (undirected graph hai).
+
+List<Integer> leaves = new ArrayList<>();
+🔹 Leaves ka list banaya — jin nodes ki degree = 1 hai.
+
+for (int i = 0; i < n; i++) { if (graph.get(i).size() == 1) leaves.add(i); }
+🔹 Sab leaves identify kar liye (start mein).
+
+while (n > 2)
+🔹 Jab tak 2 ya usse kam nodes bache, tab tak loop chalega — kyunki 1 ya 2 nodes hi MHT ka root ban sakte hain.
+
+n -= leaves.size();
+🔹 Har round mein jitne leaves hote hain, unhe hata kar node count update karte hain.
+
+int neighbor = graph.get(leaf).iterator().next();
+🔹 Leaf ke connected neighbor ko nikaala.
+
+graph.get(neighbor).remove(leaf);
+🔹 Us neighbor se leaf ko hata diya.
+
+if (graph.get(neighbor).size() == 1) newLeaves.add(neighbor);
+🔹 Agar ab neighbor bhi leaf ban gaya ho, toh usse next round ke leaves mein daal diya.
+
+leaves = newLeaves;
+🔹 Next round ke leaves set kar diye.
+
+return leaves;
+🔹 Bache hue nodes hi root honge — unko return kar diya.
+
+🧠 Example:
+Input: n = 4, edges = [[1,0],[1,2],[1,3]]
+Output: [1]
+Explanation: 1 is the only root that gives minimum height (1-level tree).
+
+🚀 Time & Space Complexity:
+Time: O(n)
+Space: O(n)
+
+🔗 Facing any issue or want more Java tricks?
+Connect here → https://www.linkedin.com/in/saurabh884095/

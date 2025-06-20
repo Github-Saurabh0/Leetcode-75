@@ -1,0 +1,56 @@
+✅ Java Code (Clean, Fast, Accurate Parsing)
+
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] freq = new int[26];
+        for (char task : tasks) {
+            freq[task - 'A']++;
+        }
+
+        Arrays.sort(freq);
+        int maxFreq = freq[25] - 1;
+        int idleSlots = maxFreq * n;
+
+        for (int i = 24; i >= 0 && freq[i] > 0; i--) {
+            idleSlots -= Math.min(freq[i], maxFreq);
+        }
+
+        return idleSlots > 0 ? tasks.length + idleSlots : tasks.length;
+    }
+}
+
+
+📘 Explanation
+
+int[] freq = new int[26];
+🔹 26 size ka array banaya, jisme har task (A-Z) ka frequency store karenge.
+
+for (char task : tasks) { freq[task - 'A']++; }
+🔹 Har task ki frequency ko count kiya (A = 0, B = 1,... Z = 25).
+
+Arrays.sort(freq);
+🔹 Frequency array ko sort kiya taaki highest frequency last me ho.
+
+int maxFreq = freq[25] - 1;
+🔹 Sabse zyada frequency wale task ke repetitions ke beech gap chahiye → isliye -1 kiya.
+
+int idleSlots = maxFreq * n;
+🔹 Har gap me n idle chahiye → total idle slots calculate kiye.
+
+for (int i = 24; i >= 0 && freq[i] > 0; i--) { idleSlots -= Math.min(freq[i], maxFreq); }
+🔹 Baaki tasks se idle slots ko fill karne ki koshish ki.
+
+return idleSlots > 0 ? tasks.length + idleSlots : tasks.length;
+🔹 Agar idle slots bache, toh add karo; warna direct tasks ka length hi answer hai.
+
+Example
+Input: tasks = ['A','A','A','B','B','B'], n = 2
+Output: 8
+Explanation: A → B → idle → A → B → idle → A → B
+
+Time and Space Complexity
+Time: O(n + 26 log 26) → tasks process + sort
+Space: O(1) → only fixed size array
+
+🔗 Facing any issue or want more Java tricks?
+Connect here: https://www.linkedin.com/in/saurabh884095/

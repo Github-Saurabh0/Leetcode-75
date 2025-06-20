@@ -1,0 +1,80 @@
+LeetCode Problem: Maximum Manhattan Distance After K Changes (ID: 3443)
+
+class Solution {
+    public int maxDistance(String s, int k) {
+        return Math.max(
+            Math.max(flip(s, k, 'N', 'E'), flip(s, k, 'N', 'W')),
+            Math.max(flip(s, k, 'S', 'E'), flip(s, k, 'S', 'W'))
+        );
+    }
+
+    private int flip(String s, int k, char d1, char d2) {
+        int maxDist = 0;
+        int pos = 0;
+        int opposite = 0;
+        int n = s.length();
+        char[] chars = s.toCharArray();
+
+        for (int i = 0; i < n; i++) {
+            char c = chars[i];
+            if (c == d1 || c == d2) {
+                pos++;
+            } else {
+                pos--;
+                opposite++;
+            }
+
+            int flipGain = 2 * Math.min(k, opposite);
+            maxDist = Math.max(maxDist, pos + flipGain);
+        }
+
+        return maxDist;
+    }
+}
+
+Explanation 
+
+public int maxDistance(String s, int k)
+🔹 4 direction pair combinations try karte hain:
+   ("N", "E"), ("N", "W"), ("S", "E"), ("S", "W")
+
+return Math.max(...)
+🔹 In sab mein se maximum manhattan distance return karte hain.
+
+private int flip(String s, int k, char d1, char d2)
+🔹 Ye function ek direction pair ke liye max distance nikalta hai.
+
+int pos = 0;
+🔹 Net movement position.
+
+int opposite = 0;
+🔹 Kitni baar opposite direction aayi.
+
+char[] chars = s.toCharArray();
+🔹 String to char array convert kara for faster access.
+
+Loop:
+  Agar c == d1 ya c == d2 => pos++
+  Nahi toh => pos-- and opposite++
+
+  Flip ka fayda: 2 * Math.min(k, opposite)
+  maxDist update karo agar zyada ho.
+
+return maxDist;
+🔹 Ek pair ke liye max manhattan distance return karte hain.
+
+Example:
+plaintext
+Copy
+Edit
+Input:  s = "NSWWEW", k = 3
+Best change: "NNWWWW"
+Output: 6 
+
+Time & Space Complexity:
+Time: O(n)
+
+Space: O(1) (no extra data structures)
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,89 @@
+LeetCode 3085 – Minimum Deletions to Make String K-Special 
+
+class Solution {
+    public int minimumDeletions(String word, int k) {
+        int[] freq = new int[26];
+
+        for (char c : word.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        Arrays.sort(freq);
+        int res = Integer.MAX_VALUE;
+
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] == 0) continue;
+
+            int del = 0;
+            for (int j = 0; j < 26; j++) {
+                if (freq[j] == 0) continue;
+                if (freq[j] < freq[i]) {
+                    del += freq[j]; // delete all smaller
+                } else if (freq[j] - freq[i] > k) {
+                    del += freq[j] - (freq[i] + k); // reduce excess
+                }
+            }
+
+            res = Math.min(res, del);
+        }
+
+        return res;
+    }
+}
+
+Explanation
+
+int[] freq = new int[26];
+🔹 26 lowercase letters ke frequency count karne ke liye array.
+
+for (char c : word.toCharArray())
+🔹 Har character ki frequency count kar li.
+
+Arrays.sort(freq);
+🔹 Frequency array ko sort kar diya → smallest to largest.
+
+int res = Integer.MAX_VALUE;
+🔹 Minimum deletions store karne ke liye variable.
+
+for (int i = 0; i < 26; i++)
+🔹 Har possible freq[i] ke liye assume kar rahe hain usse as minimum freq.
+
+if (freq[i] == 0) continue;
+🔹 Agar koi character nahi mila toh skip.
+
+int del = 0;
+🔹 Deletions count karne ke liye variable.
+
+for (int j = 0; j < 26; j++)
+🔹 Har character ke liye check karenge ki freq[i] ke according adjust karna hai ya delete karna hai.
+
+if (freq[j] == 0) continue;
+🔹 Agar koi character nahi hai toh skip.
+
+if (freq[j] < freq[i])
+🔹 Agar freq[i] se chhota hai toh pura delete kar do.
+
+else if (freq[j] - freq[i] > k)
+🔹 Agar allowed difference (k) se zyada hai toh extra occurrences delete karo.
+
+res = Math.min(res, del);
+🔹 Minimum deletions update karo.
+
+return res;
+🔹 Final answer return karo.
+
+Example:
+Input: word = "aabcabb", k = 1
+Frequencies: a=3, b=3, c=1
+
+→ To make all freq difference <= k,
+Delete 'c' → only 1 deletion needed.
+
+Output: 1 
+Time and Space Complexity:
+Item	Complexity
+Time	O(26²) = O(1) practically (constant)
+Space	O(26) = O(1)
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

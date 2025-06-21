@@ -1,0 +1,77 @@
+✅ Java Code (Using LinkedHashMap for LRU Cache)
+
+class LRUCache extends LinkedHashMap<Integer, Integer> {
+    private int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true); // accessOrder = true for LRU
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+        return super.getOrDefault(key, -1);
+    }
+
+    public void put(int key, int value) {
+        super.put(key, value);
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+        return size() > capacity;
+    }
+}
+
+
+Explanation
+
+class LRUCache extends LinkedHashMap<Integer, Integer>
+🔹 LinkedHashMap inherit kiya jo order maintain karta hai.
+🔹 accessOrder = true hone se least recently used sabse pehle nikal sakte hain.
+
+private int capacity;
+🔹 LRU Cache ki max size store karega.
+
+public LRUCache(int capacity)
+🔹 Constructor: cache ki capacity set ki.
+🔹 super(capacity, 0.75f, true)
+   - initial capacity
+   - load factor
+   - access order = true (LRU behaviour ke liye)
+
+public int get(int key)
+🔹 Agar key mil gaya toh uski value return karo.
+🔹 Agar nahi mila toh -1 return karo.
+🔹 `get()` ke saath access order update ho jaata hai (most recently used ban jaata hai).
+
+public void put(int key, int value)
+🔹 Agar key already hai toh value update karega.
+🔹 Naya key aaya toh insert karega.
+🔹 In dono cases mein wo recently used ban jaayega.
+
+@Override
+protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest)
+🔹 Jab size > capacity ho jaaye, toh sabse purana (least recently used) entry hatao.
+
+
+Example:
+LRUCache cache = new LRUCache(2);
+cache.put(1, 1);       // {1=1}
+cache.put(2, 2);       // {1=1, 2=2}
+cache.get(1);          // returns 1 → {2=2, 1=1}
+cache.put(3, 3);       // evicts key 2 → {1=1, 3=3}
+cache.get(2);          // returns -1
+cache.put(4, 4);       // evicts key 1 → {3=3, 4=4}
+cache.get(1);          // returns -1
+cache.get(3);          // returns 3
+cache.get(4);          // returns 4
+
+
+Time & Space Complexity
+Operation	Time	Explanation
+get()	O(1)	LinkedHashMap fast lookup
+put()	O(1)	Insert + auto-evict if needed
+Space	O(capacity)	Limited by given size
+
+Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

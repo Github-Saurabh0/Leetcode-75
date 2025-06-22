@@ -1,0 +1,76 @@
+✅ LeetCode 2138 – Divide a String Into Groups of Size k
+
+class Solution {
+    public String[] divideString(String s, int k, char fill) {
+        int n = s.length();
+        int size = (n + k - 1) / k; // ceiling of n/k
+        String[] result = new String[size];
+
+        int index = 0;
+        for (int i = 0; i < n; i += k) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = i; j < i + k; j++) {
+                if (j < n) sb.append(s.charAt(j));
+                else sb.append(fill);
+            }
+            result[index++] = sb.toString();
+        }
+
+        return result;
+    }
+}
+
+Explanation
+
+public String[] divideString(String s, int k, char fill)
+🔹 Hume string s ko k-k characters ke group mein divide karna hai.
+🔹 Agar last group chhota ho toh fill character se pad karna hai.
+
+int n = s.length();
+🔹 Total length of string.
+
+int size = (n + k - 1) / k;
+🔹 Groups ka total count calculate kiya using ceiling formula.
+
+String[] result = new String[size];
+🔹 Final result array banaya jisme hum groups store karenge.
+
+int index = 0;
+🔹 Group insert karne ke liye index tracker.
+
+for (int i = 0; i < n; i += k)
+🔹 Loop har k characters pe chalta hai.
+
+StringBuilder sb = new StringBuilder();
+🔹 Group banane ke liye temporary StringBuilder use kiya.
+
+for (int j = i; j < i + k; j++)
+🔹 k size ka group banane ke liye inner loop.
+
+if (j < n) sb.append(s.charAt(j));
+🔹 Agar string ka character available hai toh use add karo.
+
+else sb.append(fill);
+🔹 Nahi toh fill character daal do.
+
+result[index++] = sb.toString();
+🔹 Group complete hone ke baad array mein store karo.
+
+return result;
+🔹 Saare groups return kar do.
+🧠 Example:
+Input: s = "abcdefghi", k = 3, fill = 'x'
+
+Groups:
+["abc", "def", "ghi"]
+
+Input: s = "abcdefghij", k = 3, fill = 'z'
+→ ["abc", "def", "ghz"]
+
+Time and Space Complexity:
+Item	Complexity
+Time	O(n)
+Space	O(n)
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

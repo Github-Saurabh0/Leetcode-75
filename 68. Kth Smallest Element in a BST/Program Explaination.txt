@@ -1,0 +1,84 @@
+LeetCode 230 – Kth Smallest Element in a BST
+
+✅ Java Code (Inorder Traversal – Clean, Fast, Accurate)
+
+class Solution {
+    private int count = 0;
+    private int result = -1;
+
+    public int kthSmallest(TreeNode root, int k) {
+        inorder(root, k);
+        return result;
+    }
+
+    private void inorder(TreeNode node, int k) {
+        if (node == null) return;
+
+        inorder(node.left, k);
+
+        count++;
+        if (count == k) {
+            result = node.val;
+            return;
+        }
+
+        inorder(node.right, k);
+    }
+}
+
+Explanation
+
+private int count = 0;
+🔹 Yeh variable count karega kitne nodes traverse ho chuke hain.
+
+private int result = -1;
+🔹 Final kth smallest value ko store karega.
+
+public int kthSmallest(TreeNode root, int k)
+🔹 Main function jisme root node aur k input mein milta hai.
+
+inorder(root, k);
+🔹 Inorder traversal call karte hain — BST ka sorted order milta hai.
+
+return result;
+🔹 Jab kth element mil gaya, tab result return karte hain.
+
+private void inorder(TreeNode node, int k)
+🔹 Recursively left → root → right order traverse karte hain.
+
+if (node == null) return;
+🔹 Base case: agar node null hai toh wapas jao.
+
+count++;
+🔹 Har visit par ek node count karte hain.
+
+if (count == k)
+🔹 Jab count k ke barabar ho jaye, answer mil gaya.
+
+result = node.val;
+🔹 Answer store karo.
+
+return;
+🔹 Found hone ke baad aage traverse karne ki zarurat nahi.
+
+Baaki right subtree bhi traverse karte hain agar kth nahi mila ho.
+Example:
+
+Input: root = [3,1,4,null,2], k = 1
+Tree:
+     3
+    / \
+   1   4
+    \
+     2
+
+Inorder Traversal: 1 → 2 → 3 → 4  
+k = 1 ⇒ Output: 1
+Time and Space Complexity
+Operation	Complexity
+Time	O(H + k)
+Space	O(H) recursion
+H is the height of the tree (logN for balanced, N for skewed)	
+
+Facing any issue or want more Java tricks?
+https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,110 @@
+LeetCode 76 – Minimum Window Substring
+
+class Solution {
+    public String minWindow(String s, String t) {
+        if (s.length() < t.length()) return "";
+
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : t.toCharArray())
+            map.put(c, map.getOrDefault(c, 0) + 1);
+
+        int left = 0, minLen = Integer.MAX_VALUE, match = 0;
+        int start = 0;
+        Map<Character, Integer> window = new HashMap<>();
+
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            window.put(c, window.getOrDefault(c, 0) + 1);
+
+            if (map.containsKey(c) && window.get(c).intValue() <= map.get(c).intValue())
+                match++;
+
+            while (match == t.length()) {
+                if (right - left + 1 < minLen) {
+                    minLen = right - left + 1;
+                    start = left;
+                }
+
+                char ch = s.charAt(left);
+                window.put(ch, window.get(ch) - 1);
+                if (map.containsKey(ch) && window.get(ch).intValue() < map.get(ch).intValue())
+                    match--;
+
+                left++;
+            }
+        }
+
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
+    }
+}
+
+Explanation
+
+if (s.length() < t.length()) return "";
+🔹 Agar s ki length t se chhoti hai toh koi window possible nahi.
+
+Map<Character, Integer> map = new HashMap<>();
+🔹 t ke characters aur unki frequency store kar rahe hain.
+
+for (char c : t.toCharArray())
+🔹 t ka har character map mein daal diya.
+
+int left = 0, minLen = Integer.MAX_VALUE, match = 0, start = 0;
+🔹 Sliding window ke liye variables:
+   - left: window ka start
+   - match: matched characters count
+   - minLen: ab tak ka smallest window
+   - start: smallest window ka start index
+
+Map<Character, Integer> window = new HashMap<>();
+🔹 Current window ka frequency map
+
+Loop: for (int right = 0; right < s.length(); right++)
+🔹 Right pointer se window badha rahe hain.
+
+char c = s.charAt(right);
+window.put(c, window.getOrDefault(c, 0) + 1);
+🔹 Current character window mein add kar rahe hain.
+
+if (map.containsKey(c) && window.get(c) <= map.get(c))
+match++;
+🔹 Agar c t ka character hai aur count required se kam ya equal hai, toh match++
+
+while (match == t.length())
+🔹 Jab saare characters match ho gaye ho
+
+if (right - left + 1 < minLen)
+🔹 Agar current window chhoti hai, toh result update karo.
+
+window.put(s.charAt(left), window.get(s.charAt(left)) - 1);
+🔹 Left pointer se character hata rahe hain.
+
+if (map.containsKey(ch) && window.get(ch) < map.get(ch))
+match--;
+🔹 Agar match kam ho gaya toh match count bhi kam karo.
+
+left++;
+🔹 Window ko chhota karo (left badhao)
+
+return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
+🔹 Agar koi window mila toh return karo, warna "" return karo.
+
+Example:
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+
+Input: s = "a", t = "a"
+Output: "a"
+
+Input: s = "a", t = "aa"
+Output: ""(not enough characters)
+
+Time & Space Complexity
+Item	Complexity
+Time	O(s + t)
+Space	O(s + t)
+
+(Only lowercase or uppercase chars in maps)	
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

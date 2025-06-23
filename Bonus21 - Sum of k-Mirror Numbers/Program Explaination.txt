@@ -1,0 +1,103 @@
+LeetCode 2081 – Sum of k-Mirror Numbers
+
+class Solution {
+    public long kMirror(int k, int n) {
+        long sum = 0;
+        int count = 0;
+        int len = 1;
+
+        while (count < n) {
+            for (long i = (long) Math.pow(10, (len - 1) / 2); i < (long) Math.pow(10, (len + 1) / 2); i++) {
+                String left = String.valueOf(i);
+                String rev = new StringBuilder(left).reverse().toString();
+
+                // Odd length → skip last char of rev
+                String pal = left + rev.substring(len % 2);
+
+                long num = Long.parseLong(pal);
+                if (isKMirror(num, k)) {
+                    sum += num;
+                    count++;
+                    if (count == n) break;
+                }
+            }
+            len++;
+        }
+        return sum;
+    }
+
+    private boolean isKMirror(long num, int k) {
+        String baseK = Long.toString(num, k);
+        int l = 0, r = baseK.length() - 1;
+        while (l < r) {
+            if (baseK.charAt(l++) != baseK.charAt(r--)) return false;
+        }
+        return true;
+    }
+}
+
+Explanation
+
+public long kMirror(int k, int n)
+🔹 hume `n` aise numbers chahiye jo base-10 aur base-k dono me palindrome ho.
+
+long sum = 0, count = 0;
+🔹 sum me answer store karenge, count se track karenge kitne mil chuke hain.
+
+int len = 1;
+🔹 starting palindrome length = 1
+
+while (count < n)
+🔹 jab tak n palindrome mil na jaye
+
+for (long i = 10^((len - 1)/2) to 10^((len+1)/2))
+🔹 har number ko left-half leke usse full palindrome banayenge.
+
+String left = String.valueOf(i);
+String rev = reverse of left;
+
+String pal = left + rev.substring(len % 2);
+🔹 odd length ho toh center repeat na ho, isliye half reverse chhota hota hai.
+
+long num = Long.parseLong(pal);
+🔹 full number generate kara string se.
+
+if (isKMirror(num, k))
+🔹 agar ye number base-k me bhi palindrome hai
+
+sum += num;
+count++;
+
+if (count == n) break;
+🔹 required count mil gaya toh break
+
+len++;
+🔹 ab next length ke palindromes banayenge
+
+return sum;
+🔹 final answer
+isKMirror(long num, int k)
+
+String baseK = Long.toString(num, k);
+🔹 number ko base-k string me convert kara.
+
+Check palindrome from both ends:
+while (l < r)
+  if mismatch → return false
+
+Return true if all match
+Example
+
+Input: k = 2, n = 5
+Output: 25
+Explanation:
+→ 5 smallest 2-mirror numbers: 1, 3, 5, 7, 9
+→ sum = 25
+
+Time & Space Complexity
+Item	Complexity
+Time	Depends on n, worst O(n logN)
+Space	O(1) + string storage
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

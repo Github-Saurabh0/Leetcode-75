@@ -1,0 +1,58 @@
+LeetCode 2200 – Find All K-Distant Indices
+
+class Solution {
+    public List<Integer> findKDistantIndices(int[] nums, int key, int k) {
+        List<Integer> result = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = Math.max(0, i - k); j <= Math.min(nums.length - 1, i + k); j++) {
+                if (nums[j] == key) {
+                    result.add(i);
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+Explanation
+
+List<Integer> result = new ArrayList<>();
+🔹 Result store karne ke liye list banayi.
+
+Outer loop: i = 0 to nums.length - 1
+🔹 Har index i ke liye check karenge ki kya vo k-distant hai kisi key wale index se.
+
+Inner loop: j = i - k to i + k
+🔹 i ke aaspas ke sabhi valid indices check karenge (boundary handle bhi kar rahe hain).
+
+if (nums[j] == key)
+🔹 Agar key mil gaya, to i k-distant index hai.
+
+result.add(i);
+🔹 Result list me i add kar diya.
+
+break;
+🔹 Key mil gaya to inner loop break kar do (further check nahi chahiye).
+
+Return result;
+🔹 Final answer list return kar di.
+
+Example
+Input: nums = [3,4,9,1,3,9,5], key = 9, k = 1
+
+Output: [1,2,3,4,5,6]
+🔹 Index 2 & 5 par key=9 hai
+🔹 Toh inke ±1 range ke sabhi indices answer me aate hain
+
+Time and Space Complexity
+Metric	Complexity
+Time	O(n * k)
+Space	O(n)
+
+Efficient for small k (since problem allows small arrays).
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

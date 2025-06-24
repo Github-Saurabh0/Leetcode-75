@@ -1,0 +1,86 @@
+LeetCode 42 – Trapping Rain Water
+
+class Solution {
+    public int trap(int[] height) {
+        int left = 0, right = height.length - 1;
+        int leftMax = 0, rightMax = 0;
+        int water = 0;
+
+        while (left < right) {
+            if (height[left] < height[right]) {
+                if (height[left] >= leftMax)
+                    leftMax = height[left];
+                else
+                    water += leftMax - height[left];
+                left++;
+            } else {
+                if (height[right] >= rightMax)
+                    rightMax = height[right];
+                else
+                    water += rightMax - height[right];
+                right--;
+            }
+        }
+
+        return water;
+    }
+}
+
+Explanation
+
+int left = 0, right = height.length - 1;
+🔹 2 pointers: ek array ke start par, dusra end par.
+
+int leftMax = 0, rightMax = 0;
+🔹 Left aur right se max height track karne ke liye.
+
+int water = 0;
+🔹 Total paani ka amount track karne ke liye.
+
+while (left < right)
+🔹 Jab tak left aur right pointer cross na karein.
+
+if (height[left] < height[right])
+🔹 Agar left ki height chhoti hai → left side control karega.
+
+    if (height[left] >= leftMax)
+        leftMax = height[left];
+    🔹 Agar current height zyada hai, toh update karo.
+
+    else
+        water += leftMax - height[left];
+    🔹 Otherwise, trap kiya gaya paani = leftMax - current height
+
+    left++;
+🔹 Move left pointer to right
+
+else
+🔹 Agar right side chhoti ya equal hai
+
+    if (height[right] >= rightMax)
+        rightMax = height[right];
+
+    else
+        water += rightMax - height[right];
+
+    right--;
+	
+🔹 Move right pointer to left
+
+ Example:
+Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
+
+Water trapped:
+→ Total = 6 units
+
+LeftMax: 0 1 1 2 2 2 2 3 3 3 3 3  
+RightMax:3 3 3 3 3 3 3 3 2 2 2 1
+
+Time & Space Complexity
+Metric	Complexity
+Time	O(n)
+Space	O(1)
+Two pointer solution is optimal in both time and space.	
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

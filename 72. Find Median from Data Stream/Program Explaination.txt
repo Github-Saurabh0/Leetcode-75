@@ -1,0 +1,67 @@
+LeetCode 295 – Find Median from Data Stream
+
+class MedianFinder {
+    private PriorityQueue<Integer> small; // Max Heap
+    private PriorityQueue<Integer> large; // Min Heap
+
+    public MedianFinder() {
+        small = new PriorityQueue<>(Collections.reverseOrder());
+        large = new PriorityQueue<>();
+    }
+
+    public void addNum(int num) {
+        small.offer(num);
+        large.offer(small.poll());
+
+        if (small.size() < large.size()) {
+            small.offer(large.poll());
+        }
+    }
+
+    public double findMedian() {
+        if (small.size() == large.size()) {
+            return (small.peek() + large.peek()) / 2.0;
+        }
+        return small.peek();
+    }
+}
+
+Explanation
+
+PriorityQueue<Integer> small = MaxHeap (left side)
+PriorityQueue<Integer> large = MinHeap (right side)
+🔹 small: lower half numbers
+🔹 large: upper half numbers
+
+Constructor → dono heaps initialize kiye.
+
+addNum(int num)
+🔹 Step 1: num ko small (maxheap) me daala
+🔹 Step 2: small se top element large (minheap) me daala (to balance)
+🔹 Step 3: Agar large zyada bada ho gaya ho toh wapas small me daal do
+
+→ Is logic se heaps ka balance maintained rahega
+
+findMedian()
+🔹 Agar dono heaps ka size equal hai:
+   return average of top elements
+🔹 Agar unequal:
+   return top of small (kyunki vo zyada size ka hoga)
+   
+Example:
+addNum(1)
+addNum(2)
+findMedian() → 1.5
+
+addNum(3)
+findMedian() → 2.0
+
+Time and Space Complexity:
+Operation	Time	Space
+addNum()	O(log n)	O(n)
+findMedian()	O(1)	O(n)
+
+Efficient for dynamic data stream scenarios.
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

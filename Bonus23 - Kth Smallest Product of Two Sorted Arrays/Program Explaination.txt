@@ -1,0 +1,100 @@
+LeetCode 2040 – Kth Smallest Product of Two Sorted Arrays
+
+class Solution {
+    public long kthSmallestProduct(int[] nums1, int[] nums2, long k) {
+        long low = -1_000_000_0000L, high = 1_000_000_0000L;
+
+        while (low < high) {
+            long mid = low + (high - low) / 2;
+            if (countPairs(nums1, nums2, mid) < k) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+
+        return low;
+    }
+
+    private long countPairs(int[] A, int[] B, long x) {
+        long count = 0;
+        for (int a : A) {
+            if (a > 0) {
+                int l = 0, r = B.length;
+                while (l < r) {
+                    int m = (l + r) / 2;
+                    if ((long) a * B[m] <= x) l = m + 1;
+                    else r = m;
+                }
+                count += l;
+            } else if (a < 0) {
+                int l = 0, r = B.length;
+                while (l < r) {
+                    int m = (l + r) / 2;
+                    if ((long) a * B[m] <= x) r = m;
+                    else l = m + 1;
+                }
+                count += B.length - l;
+            } else {
+                if (x >= 0) count += B.length;
+            }
+        }
+        return count;
+    }
+}
+
+Explanation
+
+🔸 kthSmallestProduct(...)
+
+long low = -1e10, high = 1e10;
+🔹 Product ki range define ki (safest large limit).
+
+Binary search between low and high:
+while (low < high)
+
+mid = (low + high) / 2;
+🔹 Check karte hain mid tak kitne products possible hain
+
+if (countPairs(...) < k)
+  🔹 agar mid tak k se kam product hain, toh answer bada hoga
+  low = mid + 1;
+else
+  🔹 nahi toh chhota ho sakta hai
+  high = mid;
+
+return low;
+🔹 Final answer milega jab low == high
+🔸 countPairs(...) – Count how many pairs have product ≤ x
+
+
+Loop through A ka har element:
+
+If a > 0:
+  Binary search first B[j] such that a * B[j] > x
+  Add count = j index (kyunki sab previous product ≤ x honge)
+
+If a < 0:
+  Binary search first B[j] such that a * B[j] ≤ x
+  Add count = B.length - j (kyunki uske baad wale hi ≤ x honge)
+
+If a == 0:
+  Agar x >= 0 ho toh 0 ke saath har B ka product bhi 0 hoga
+  Toh count += B.length
+  
+Example:
+nums1 = [-4, -2, 0, 3], nums2 = [2, 4], k = 6
+
+→ Sorted product array: [-16, -8, -8, -4, -4, 0, 0, 6]
+→ kth = 6 → Answer = 0 
+
+Time & Space Complexity:
+Metric	Value
+Time	O((logR) * (m * logn))
+Space	O(1)
+
+R = range of possible product values
+m = length of nums1, n = length of nums2
+
+🔗 Facing any issue or want more Java tricks?
+https://www.linkedin.com/in/saurabh884095/

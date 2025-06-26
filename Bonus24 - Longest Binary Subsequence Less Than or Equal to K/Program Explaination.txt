@@ -1,0 +1,106 @@
+Leetcode 2311 – Longest Binary Subsequence Less Than or Equal to K
+
+class Solution {
+  public int longestSubsequence(String s, int k) {
+    int oneCount = 0;
+    long num = 0;
+    long pow = 1;
+
+    for (int i = s.length() - 1; i >= 0; --i) {
+      if (s.charAt(i) == '1') {
+        if (pow <= k && num + pow <= k) {
+          ++oneCount;
+          num += pow;
+        }
+      }
+      if (pow > k) break;
+      pow *= 2;
+    }
+
+    long zeroCount = s.chars().filter(c -> c == '0').count();
+    return (int)(zeroCount + oneCount);
+  }
+}
+
+Explanation:
+
+int oneCount = 0;
+
+Ye count karega kitne '1' hum subsequence me include kar sake.
+
+long num = 0;
+
+Ab tak ka subsequence ka decimal value track karega.
+
+long pow = 1;
+
+Current bit ka power of 2 value (2^0, 2^1, ...)
+
+for (int i = s.length() - 1; i >= 0; --i)
+
+String ke right se left traverse kar rahe hain, kyunki binary me rightmost digit ka value sabse kam hota hai.
+
+if (s.charAt(i) == '1')
+
+Agar current character '1' hai, toh uska contribution check karenge.
+
+if (pow <= k && num + pow <= k)
+
+Agar power aur total value abhi bhi k ke andar hai, toh us '1' ko le sakte hain.
+
+++oneCount;
+
+'1' include kar liya → count badha diya.
+
+num += pow;
+
+Uska decimal value add kiya total me.
+
+if (pow > k) break;
+
+Agar power already k se bada ho gaya, toh aage ke bits ko lena bekaar hai, break.
+
+pow *= 2;
+
+Next higher bit ke liye power double kar diya (2^i)
+
+long zeroCount = s.chars().filter(c -> c == '0').count();
+
+String me total kitne '0' hain, unka count le liya, kyunki '0' ko free me include kar sakte hain (wo value nahi badhate).
+
+return (int)(zeroCount + oneCount);
+
+Final answer = total zeros + selected ones
+
+Example Dry Run:
+
+Input: s = "00101001", k = 1
+
+Right to left:
+
+i=7 → '1' → pow=1 → num=0+1=1 ✅ → oneCount=1
+
+i=6 → '0' ✅
+
+i=5 → '0' ✅
+
+i=4 → '1' → pow=2 → pow > k ❌ → break
+
+Total zeros = 5
+
+Final answer = 5 + 1 = 6 ✅
+
+Key Points:
+
+Ham right se left jaate hain taaki chhoti binary value pehle mile.
+
+'0' ko humesha include kar sakte ho, kyunki unka koi decimal impact nahi hota.
+
+'1' ko tabhi include karo jab decimal value ab tak k ke andar ho.
+
+Overflow avoid karne ke liye pow and num ko long liya.
+
+Loop tabhi break karo jab pow > k ho jaaye.
+
+Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

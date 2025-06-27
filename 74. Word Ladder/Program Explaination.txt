@@ -1,0 +1,114 @@
+✅ LeetCode 127 – Word Ladder
+
+import java.util.*;
+
+public class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Set<String> wordSet = new HashSet<>(wordList);
+        if (!wordSet.contains(endWord)) return 0;
+
+        Queue<String> queue = new LinkedList<>();
+        queue.offer(beginWord);
+
+        Set<String> visited = new HashSet<>();
+        visited.add(beginWord);
+
+        int level = 1;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
+                String word = queue.poll();
+
+                for (int j = 0; j < word.length(); j++) {
+                    char[] chars = word.toCharArray();
+
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        chars[j] = c;
+                        String nextWord = new String(chars);
+
+                        if (nextWord.equals(endWord)) return level + 1;
+
+                        if (wordSet.contains(nextWord) && !visited.contains(nextWord)) {
+                            queue.offer(nextWord);
+                            visited.add(nextWord);
+                        }
+                    }
+                }
+            }
+
+            level++;
+        }
+
+        return 0;
+    }
+}
+
+Explanation
+
+public int ladderLength(String beginWord, String endWord, List<String> wordList)
+🔹 Hum shortest path dhoondhna chahte hain jisme beginWord se endWord tak 1-1 letter badalte jayein, aur har step ka word wordList me ho.
+
+Set<String> wordSet = new HashSet<>(wordList);
+if (!wordSet.contains(endWord)) return 0;
+
+🔹 WordList ko fast lookup ke liye Set me convert kiya.
+Agar endWord wordList me hi nahi hai, toh answer 0.
+
+Queue<String> queue = new LinkedList<>();
+queue.offer(beginWord);
+
+🔹 BFS traversal ke liye queue banayi. Start kar rahe hain beginWord se.
+
+Set<String> visited = new HashSet<>();
+visited.add(beginWord);
+
+🔹 Taaki kisi word ko repeat na karein, ek visited set bhi maintain kar rahe hain.
+
+int level = 1;
+🔹 BFS me level = steps in ladder. Starting level 1 hoga.
+
+while (!queue.isEmpty())
+🔹 Jab tak queue khali nahi hoti, BFS chalayenge.
+
+int size = queue.size();
+🔹 Ek level ke saare nodes ek saath process honge.
+
+for (int i = 0; i < size; i++) {...}
+🔹 Ek level ke jitne words hain unpe loop.
+
+for (int j = 0; j < word.length(); j++) {...}
+for (char c = 'a'; c <= 'z'; c++) {...}
+
+🔹 Har position par a to z characters try karke new words banate hain.
+
+if (nextWord.equals(endWord)) return level + 1;
+🔹 Agar endWord mil gaya toh answer return kar do.
+
+if (wordSet.contains(nextWord) && !visited.contains(nextWord))
+🔹 Agar new word wordList me hai aur already visit nahi hua hai, toh queue me daal do.
+
+level++;
+🔹 Ek level complete hone ke baad level count badhayein.
+
+return 0;
+🔹 Agar endWord kabhi nahi mila → return 0
+
+Example Dry Run
+Input:
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log","cog"]
+Transform:
+"hit" → "hot" → "dot" → "dog" → "cog"
+
+Output: 5
+
+Time & Space Complexity
+Item	Complexity
+Time	O(N * 26 * L), where N = word count, L = word length
+Space	O(N + Q + visited) = O(N)
+
+Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

@@ -1,0 +1,129 @@
+✅ LeetCode 2014 – Longest Subsequence Repeated K Times
+
+public class Solution {
+    public String longestSubsequenceRepeatedK(String s, int k) {
+        int[] freq = new int[26];
+        for (char c : s.toCharArray()) freq[c - 'a']++;
+
+        List<Character> candidates = new ArrayList<>();
+        for (char c = 'z'; c >= 'a'; c--) {
+            if (freq[c - 'a'] >= k) {
+                candidates.add(c);
+            }
+        }
+
+        Queue<String> queue = new LinkedList<>();
+        queue.offer("");
+        String result = "";
+
+        while (!queue.isEmpty()) {
+            String curr = queue.poll();
+
+            for (char c : candidates) {
+                String next = curr + c;
+
+                if (isValid(s, next, k)) {
+                    queue.offer(next);
+
+                    if (next.length() > result.length() || 
+                       (next.length() == result.length() && next.compareTo(result) > 0)) {
+                        result = next;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isValid(String s, String target, int k) {
+        int index = 0, count = 0;
+        for (char c : s.toCharArray()) {
+            if (c == target.charAt(index)) {
+                index++;
+                if (index == target.length()) {
+                    count++;
+                    index = 0;
+                    if (count == k) return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+Explanation
+
+public String longestSubsequenceRepeatedK(String s, int k)
+🔹 Hume s string se sabse badi string chahiye jo s me at least k baar subsequence ke roop me aa rahi ho.
+
+int[] freq = new int[26];
+for (char c : s.toCharArray()) freq[c - 'a']++;
+
+🔹 Har character ka frequency count store kar rahe hain.
+Agar koi character k se kam baar aaya hai toh use consider hi nahi karenge.
+
+List<Character> candidates = new ArrayList<>();
+for (char c = 'z'; c >= 'a'; c--) {
+if (freq[c - 'a'] >= k) {
+candidates.add(c);
+}
+}
+
+🔹 Sirf un characters ko rakha jo k times ya zyada aaye hain.
+Z to A order me daala taaki lexicographically badi string pehle mile.
+
+Queue<String> queue = new LinkedList<>();
+queue.offer("");
+String result = "";
+
+🔹 BFS ke liye queue banayi. Starting string empty hai.
+Result me best answer store hoga.
+
+while (!queue.isEmpty())
+🔹 Jab tak queue khali nahi ho jati, sab possible strings try karte rahenge.
+
+for (char c : candidates)
+🔹 Har character ko current string me jodke naya string bana rahe hain.
+
+if (isValid(s, next, k))
+🔹 Check kar rahe hain kya naya string next s me k baar subsequence ke roop me aata hai ya nahi.
+
+if (next.length() > result.length() ||
+(same length && next.compareTo(result) > 0)) → result = next
+
+🔹 Result tab update hoga jab ya toh length bada ho,
+ya same length ho lekin lexicographically bada ho.
+
+isValid(String s, String target, int k)
+Convert s into char loop
+Agar target ke index se match mila toh index++
+
+Jab pura target match ho jaaye → count++
+
+Jab tak count == k na ho jaaye loop chalao
+
+Agar count == k ho gaya toh true return karo
+
+Example Dry Run
+Input:
+s = "letsleetcode", k = 2
+
+Step-by-step:
+
+Candidates: ['t','s','o','l','l','e','d','c'] (only those appearing ≥ 2)
+
+Build subsequence strings using BFS
+
+Valid check: "let" appears twice → ✅
+
+Output: "let"
+
+Time & Space Complexity
+Item	Complexity
+Time	O(N * B^L), where B = valid chars, L = 7 max
+Space	O(B^L) for queue and string storage
+isValid function	O(N) per call
+
+🔗 Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

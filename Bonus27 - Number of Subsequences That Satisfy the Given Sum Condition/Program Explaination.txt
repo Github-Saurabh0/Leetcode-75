@@ -1,0 +1,80 @@
+✅ LeetCode 1498 – Number of Subsequences That Satisfy the Given Sum Condition
+
+import java.util.Arrays;
+
+public class Solution {
+    private static final int MOD = 1_000_000_007;
+
+    public int numSubseq(int[] nums, int target) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int[] pow = new int[n];
+        pow[0] = 1;
+
+        // Precompute powers of 2
+        for (int i = 1; i < n; i++) {
+            pow[i] = (pow[i - 1] * 2) % MOD;
+        }
+
+        int left = 0, right = n - 1, count = 0;
+
+        while (left <= right) {
+            if (nums[left] + nums[right] <= target) {
+                count = (count + pow[right - left]) % MOD;
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return count;
+    }
+}
+
+Explanation
+
+Arrays.sort(nums);
+🔹 Sabse pehle array ko sort karte hain taaki two-pointer approach use kar sakein.
+
+int[] pow = new int[n];
+pow[0] = 1;
+for (int i = 1 to n)
+ pow[i] = 2^i % MOD
+
+🔹 Har length ke subsequence combinations ke liye powers of 2 precompute karte hain.
+2^(right - left) = number of valid subsequences when nums[left] + nums[right] <= target.
+
+Two pointer approach:
+int left = 0, right = n - 1;
+while (left <= right)
+🔹 Left smallest element ko point karta hai, right largest ko.
+Agar nums[left] + nums[right] <= target, toh:
+
+left se right tak sab combinations valid honge
+
+total = 2^(right - left)
+
+🔹 Else right ko ek step left le jao (kyunki bada number hataoge toh sum kam hoga)
+
+count = (count + pow[right - left]) % MOD;
+🔹 Valid combination milne par subsequence count update karo.
+
+Example Dry Run
+Input:
+nums = [3,5,6,7], target = 9
+Sorted: [3,5,6,7]
+
+(3 + 7 = 10 ) → right--
+(3 + 6 = 9 ) → 2^(2 - 0) = 4 subsequences → count = 4
+left++
+(5 + 6 = 11 ) → right--
+(5 + 5 = 10 ) → right--
+Final answer = 4
+
+Time & Space Complexity
+Item	Complexity
+Time	O(N log N)
+Space	O(N)
+
+Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/

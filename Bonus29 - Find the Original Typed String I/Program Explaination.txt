@@ -1,0 +1,52 @@
+LeetCode 3330 – Find the Original Typed String I
+
+class Solution {
+  public int possibleStringCount(String word) {
+    int ans = 1;
+    for (int i = 1; i < word.length(); ++i)
+      if (word.charAt(i) == word.charAt(i - 1))
+        ++ans;
+    return ans;
+  }
+}
+
+Explanation
+
+int ans = 1;
+🔹 Minimum ek character toh original hoga hi (starting character).
+
+for (int i = 1; i < word.length(); ++i)
+🔹 Loop chala rahe hain second character se end tak.
+
+if (word.charAt(i) == word.charAt(i - 1)) ++ans;
+🔹 Agar current character same hai previous ke, toh wo repeat type hai
+🔹 Toh valid typed key hai → ans++
+
+return ans;
+🔹 Total valid typed characters count return kar do.
+
+🧪 Example
+Input: "aabbcc"
+Explanation:
+
+a = original
+
+a = repeat → +1
+
+b = new
+
+b = repeat → +1
+
+c = new
+
+c = repeat → +1
+
+Output: 6
+
+Time & Space Complexity
+Metric	Value
+Time	O(n)
+Space	O(1)
+
+Need more help or Java tricks?
+https://www.linkedin.com/in/saurabh884095/
